@@ -11,13 +11,21 @@ const razaoSocial = 'REINHOLZ GINGER COMERCIO DE RAIZES LTDA';
 const cnpj = '50688819000161';
 const inscricaoEstadual = '084083271';
 const cep = '29260000';
-const tipo = 'area';
+const tipo = 'Area';
 const logradouro = 'AE ZONA RURAL';
 const numero = '00';
 const bairro = 'GALO';
 const complemento = 'GALPÃO SÍTIO REINHOLZ';
 const email = 'reinholzginger@hotmail.com';
 
+// dados do pedido 
+produto = 'gengibre fresco';
+quantidade ='2';
+valorUnit ='1';
+desconto="";
+
+ncm= '09101100';
+complementares = 'Mercadoria destinada a exportação';
 
 // seletor botão avançar 
 botaoAvancar = '#btn-avancar';
@@ -26,10 +34,12 @@ botaoAvancar = '#btn-avancar';
     // Inicialize o navegador
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
+   
 
     try {
         // Navegue até o site do Sefaz
         await page.goto('https://app.sefaz.es.gov.br/NFAe/');
+       
 
         //define o seletor 
         produtorRuralSeletor = '[name="ProdutorRural"]';
@@ -115,7 +125,7 @@ botaoAvancar = '#btn-avancar';
 
         //seledciona area 
         await page.waitForSelector('#DesTipoLogradouro');
-        await page.select('#DesTipoLogradouro','Area');
+        await page.select('#DesTipoLogradouro',tipo);
 
         //preenche o numero 
         await page.type('#DesNumero',numero);
@@ -130,9 +140,65 @@ botaoAvancar = '#btn-avancar';
 
         console.log('Dados preenchidos !');
 
-          //avança para a próxima etapa 
-          await page.click(botaoAvancar);
-          console.log('Avançando...')
+        //avança para a próxima etapa 
+        await page.click(botaoAvancar);
+        console.log('Avançando...')
+
+
+        //aguarda a página de adicionar produtos ficar totamente visivel 
+        await page.waitForSelector('#form-passo-3', { visible: true });
+        await page.waitForSelector('#div-descricao-produto-produtor', { visible: true });
+
+        //adicionando produtos 
+        outroProduto = await page.$('#div-descricao-produto-produtor');
+        await page.click("#div-descricao-produto-produtor");
+        //seleciona outros produtos 
+        await page.waitForSelector('[data-original-index="40"]');
+        await page.click('[data-original-index="40"]');
+
+        // aguarda o campo select do produto novo carregar
+        await page.waitForSelector("#descricao-livre-produto");
+        await page.type("#descricao-livre-produto",produto);
+        console.log('produto adicionado')
+
+        //seleciona a unidade 
+        // await page.click('.unidade');
+        // await page.click('[data-original-index="2"]');
+        // console.log('unidade adicionado')
+
+        //adiciona quantidade
+        await page.type('#QuantProd',quantidade);
+        console.log('quantidade adicionado')
+
+        //valor unit 
+        await page.type('#ValorUnit',valorUnit);
+        console.log('Valor adicionado')
+
+
+        //adicionar ncm 
+        await page.click('#lnk-ncm-produto');
+        await page.waitForSelector('#Ncm');
+        await page.type('#Ncm',ncm);
+        console.log('ncm adicionado')
+
+        //adicionar informações complementares 
+        await page.click('#lnk-info-complementar-produto');
+        await page.waitForSelector('#txt-info-complementar-produto');
+        await page.type('#txt-info-complementar-produto',complementares);
+        console.log('complementares adicionado')
+
+        // //selecionar tributação
+        // await page.click('[data-id="ICMSTributacao"]');
+        // await page.waitForSelector('[data-original-index="1"]');
+        // await page.click('[data-original-index="1"]');
+
+        console.log('Tributação')
+
+        //incluir
+        await page.click('#btn-incluir-produto');
+        console.log('Incluir Produto')
+
+  
 
     } catch (error) {
         console.error('Erro:', error);
