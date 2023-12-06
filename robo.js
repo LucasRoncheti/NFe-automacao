@@ -19,12 +19,12 @@ const complemento = 'GALPÃO SÍTIO REINHOLZ';
 const email = 'reinholzginger@hotmail.com';
 
 // dados do pedido 
-produto = 'gengibre fresco';
-quantidade ='2';
-valorUnit ='1';
-desconto="";
+produto = 'Gengibre fresco';
+quantidade = '2';
+valorUnit = '1';
+desconto = "";
 
-ncm= '09101100';
+ncm = '09101100';
 complementares = 'Mercadoria destinada a exportação';
 
 // seletor botão avançar 
@@ -34,12 +34,18 @@ botaoAvancar = '#btn-avancar';
     // Inicialize o navegador
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-   
+
+    await page.setDefaultTimeout(60000);
+
+    //função que faz esperar um tempo até ir pra próxima etapa 
+    async function esperar(milissegundos) {
+        return new Promise(resolve => setTimeout(resolve, milissegundos));
+    }
 
     try {
         // Navegue até o site do Sefaz
         await page.goto('https://app.sefaz.es.gov.br/NFAe/');
-       
+
 
         //define o seletor 
         produtorRuralSeletor = '[name="ProdutorRural"]';
@@ -125,18 +131,18 @@ botaoAvancar = '#btn-avancar';
 
         //seledciona area 
         await page.waitForSelector('#DesTipoLogradouro');
-        await page.select('#DesTipoLogradouro',tipo);
+        await page.select('#DesTipoLogradouro', tipo);
 
         //preenche o numero 
-        await page.type('#DesNumero',numero);
+        await page.type('#DesNumero', numero);
         //preenche o bairro 
-        await page.type('#DesBairro',bairro);
+        await page.type('#DesBairro', bairro);
         //preenche o bairro 
-        await page.type('#DesComplemento',complemento);
+        await page.type('#DesComplemento', complemento);
         //preenche o email 
-        await page.type('#DesEmail',email);
-        
-        
+        await page.type('#DesEmail', email);
+
+
 
         console.log('Dados preenchidos !');
 
@@ -149,56 +155,155 @@ botaoAvancar = '#btn-avancar';
         await page.waitForSelector('#form-passo-3', { visible: true });
         await page.waitForSelector('#div-descricao-produto-produtor', { visible: true });
 
-        //adicionando produtos 
-        outroProduto = await page.$('#div-descricao-produto-produtor');
+        console.log('Adicionando dados do produto...')
         await page.click("#div-descricao-produto-produtor");
         //seleciona outros produtos 
+
+
+        // Seletor CSS da sua div
+        const divSelector = '.dropdown-menu:nth-child(6)';
+
+        // Rolar até o final da div
+        await page.evaluate((divSelector) => {
+            const div = document.querySelector(divSelector);
+
+            if (div) {
+                div.scrollTop = div.scrollHeight;
+            }
+        }, divSelector);
+
+        //selecionando outros produtos 
         await page.waitForSelector('[data-original-index="40"]');
         await page.click('[data-original-index="40"]');
 
-        // aguarda o campo select do produto novo carregar
-        await page.waitForSelector("#descricao-livre-produto");
-        await page.type("#descricao-livre-produto",produto);
-        console.log('produto adicionado')
+        await page.waitForSelector("#descricao-livre-produto", { visible: true })
+        await page.type("#descricao-livre-produto", produto);
+        console.log('produto adicionado');
 
         //seleciona a unidade 
-        // await page.click('.unidade');
-        // await page.click('[data-original-index="2"]');
-        // console.log('unidade adicionado')
+        await page.click('.unidade');
+        await page.waitForSelector('[data-original-index="2"]');
+
+        // Texto que você deseja usar como seletor
+        const textoDesejado = 'Caixa (CX)';
+
+        // Construir a expressão XPath para selecionar a tag <a> com base no texto
+        const xpathExpression = `//li//span[text()='${textoDesejado}']/ancestor::a`;
+
+        // Selecionar a tag <a> usando $x
+        const elementoA = await page.$x(xpathExpression);
+
+        // Fazer algo com o elemento <a> (exemplo: clicar)
+        await elementoA[0].click();
+
+        console.log('unidade adicionado');
 
         //adiciona quantidade
-        await page.type('#QuantProd',quantidade);
-        console.log('quantidade adicionado')
+        await page.type('#QuantProd', quantidade);
+        console.log('quantidade adicionado');
 
         //valor unit 
-        await page.type('#ValorUnit',valorUnit);
-        console.log('Valor adicionado')
+        await page.type('#ValorUnit', valorUnit);
+        console.log('Valor adicionado');
 
 
         //adicionar ncm 
         await page.click('#lnk-ncm-produto');
         await page.waitForSelector('#Ncm');
-        await page.type('#Ncm',ncm);
-        console.log('ncm adicionado')
+        await page.focus('#Ncm');
+
+        //selecionar e apagar texto do input 
+        await page.keyboard.down('Control');
+        await page.keyboard.press('A');
+        await page.keyboard.up('Control');
+        await page.keyboard.press('Backspace');
+
+        await page.type('#Ncm', ncm);
+        console.log('ncm adicionado');
 
         //adicionar informações complementares 
         await page.click('#lnk-info-complementar-produto');
         await page.waitForSelector('#txt-info-complementar-produto');
-        await page.type('#txt-info-complementar-produto',complementares);
+        await page.type('#txt-info-complementar-produto', complementares);
         console.log('complementares adicionado')
 
-        // //selecionar tributação
-        // await page.click('[data-id="ICMSTributacao"]');
-        // await page.waitForSelector('[data-original-index="1"]');
-        // await page.click('[data-original-index="1"]');
+        await page.click('[data-id="ICMSTributacao"]');
 
-        console.log('Tributação')
+
+        // Usando XPath para localizar o elemento pelo atributo data-original-index
+        const xpathExpression1 = `//li//span[text()='Não tributado']/ancestor::a`;
+        const elemento = await page.waitForXPath(xpathExpression1);
+        await elemento.click();
+
+        console.log('Tributação');
 
         //incluir
         await page.click('#btn-incluir-produto');
-        console.log('Incluir Produto')
 
-  
+        console.log('Incluir Produto')
+        await page.waitForSelector('.limite-desc-prod', { visible: true })
+
+        //avança para a próxima etapa 
+        await page.click(botaoAvancar);
+        console.log('Avançando...')
+
+        //adicionando frete 
+        await page.waitForSelector('#form-passo-4', { visible: true });
+        await page.waitForSelector('#responsabilidade', { visible: true });
+
+        // selecionando tipo de fret
+        await page.select('#responsabilidade', 'SemFrete');
+
+        console.log('frete selecionado');
+
+        //avança para a próxima etapa 
+        await page.click(botaoAvancar);
+        console.log('Avançando...');
+
+        //Confirmando ...
+        await page.waitForSelector('#form-passo-5', { visible: true });
+        await page.waitForSelector('#remNome', { visible: true });
+        console.log('Confirmando dados ...');
+
+
+        //avança para a próxima etapa 
+        await page.click(botaoAvancar);
+
+        //Confirmando ...
+        await page.waitForSelector('#form-passo-6', { visible: true });
+        await page.waitForSelector('#nDua', { visible: true });
+
+
+        //avança para a próxima etapa 
+        await page.click(botaoAvancar);
+        console.log('Avançando...');
+
+        //Autorização  ...
+        await page.waitForSelector('#form-passo-7', { visible: true });
+        await page.waitForSelector('#step-7', { visible: true });
+        console.log('Preenchendo autorização...');
+
+        //avança para a próxima etapa 
+        await page.click(botaoAvancar);
+        console.log('Avançando...');
+
+
+        await page.waitForSelector('#form-passo-8', { visible: true });
+        await page.waitForSelector('#step-8', { visible: true });
+        await page.waitForSelector('#divSpin', { visible: false });
+        console.log('Fazendo Download...');
+
+        const linkSelector = '#lnk-download-danfe-passo-8';
+        // Esperar até que o atributo href do link seja diferente de "#"
+        // Verificar se o elemento com o seletor existe
+        const linkElement = await page.$(linkSelector);
+
+        if (linkElement) {
+            console.log('Existe o link');
+        } else {
+            console.log('Não foi encontrado o link com o seletor especificado');
+        }
+
 
     } catch (error) {
         console.error('Erro:', error);
