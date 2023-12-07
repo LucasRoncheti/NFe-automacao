@@ -1,9 +1,10 @@
 const puppeteer = require('puppeteer');
+const path = require('path');
 
 //variaveis com as senha e login do usuário 
 let login = "10032209754";
 let senha = '@Denivaldo0';
-
+let nomeProdutor = 'ELINEIA KEMPIN REINHOLZ'
 
 //dados da empresa 
 
@@ -20,10 +21,10 @@ const email = 'reinholzginger@hotmail.com';
 
 // dados do pedido 
 produto = 'Gengibre fresco';
-quantidade = '2';
+quantidade = '1';
 valorUnit = '1';
 desconto = "";
-
+indice = '1';
 ncm = '09101100';
 complementares = 'Mercadoria destinada a exportação';
 
@@ -32,19 +33,34 @@ botaoAvancar = '#btn-avancar';
 
 (async () => {
     // Inicialize o navegador
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({
+        headless: false,
+        devtools: false,
+
+    });
     const page = await browser.newPage();
+    const page1 = await browser.newPage();
 
     await page.setDefaultTimeout(60000);
 
-    //função que faz esperar um tempo até ir pra próxima etapa 
-    async function esperar(milissegundos) {
-        return new Promise(resolve => setTimeout(resolve, milissegundos));
-    }
+
+
 
     try {
+        console.log('Iniciando o processo...')
         // Navegue até o site do Sefaz
         await page.goto('https://app.sefaz.es.gov.br/NFAe/');
+
+        // abre outra aba no navegador
+
+        // Obtém o caminho absoluto do diretório do script
+        const scriptDir = path.resolve(__dirname);
+
+        // Constrói o caminho para o arquivo HTML local
+        const filePath = `file://${scriptDir}/teste.html`;
+
+        // Carrega a página local
+        await page1.goto(filePath);
 
 
         //define o seletor 
@@ -65,13 +81,11 @@ botaoAvancar = '#btn-avancar';
             console.log("Clicando produtor rural");
         }
 
-
         //seleciona e digita o cpf no campo 
         await page.waitForSelector('#div-campo-identificador');
         console.log("Digitando login...");
         await page.type('#cpf', login);
         await page.click('#btncpf');
-
 
         //espera o campo de senha estar disponível para ser preenchido
         const elementSelector = '#div-campo-senha';
@@ -294,21 +308,116 @@ botaoAvancar = '#btn-avancar';
         console.log('Fazendo Download...');
 
         const linkSelector = '#lnk-download-danfe-passo-8';
-        // Esperar até que o atributo href do link seja diferente de "#"
-        // Verificar se o elemento com o seletor existe
-        const linkElement = await page.$(linkSelector);
 
-        if (linkElement) {
-            console.log('Existe o link');
-        } else {
-            console.log('Não foi encontrado o link com o seletor especificado');
+        let href;
+        while (true) {
+
+            await page.waitForTimeout(1000);
+
+            href = await page.$eval(linkSelector, link => link.getAttribute('href'));
+
+            if (href !== '#') {
+                await page.click(linkSelector);
+                break;
+            }
         }
+
+        console.log('Nota Gerada com Sucesso !');
+
+
+
+        const fs = require('fs');
+        const fsx = require('fs-extra');
+
+        const origemMove = 'C:/Users/Lucas Roncheti/Downloads/danfe.pdf';
+        const destinoMove = 'C:/Users/Lucas Roncheti/Downloads/NotasFiscais/danfe.pdf';
+
+
+
+        const intervalo = 500; // em milissegundos
+
+        // Função para verificar a existência do arquivo
+        function verificarExistencia() {
+            return fs.existsSync(origemMove);
+        }
+
+        // Função para mover o arquivo e retornar uma promessa
+        function moverArquivo() {
+            return new Promise((resolve, reject) => {
+                fsx.move(origemMove, destinoMove, (err) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        console.log('Arquivo movido para a pasta NotasFiscais!');
+                        resolve();
+                    }
+                });
+            });
+        }
+
+        // Loop para verificar a existência do arquivo em intervalos regulares
+        const intervalId = setInterval(async () => {
+            if (verificarExistencia()) {
+                try {
+                    // Move o arquivo para o destino e espera pela conclusão
+                    await moverArquivo();
+                    // Limpa o intervalo após mover o arquivo
+
+                    // Restante do código após o arquivo ser movido
+                    console.log('Renomeando Nota...');
+
+                    // Função para verificar se o arquivo existe
+                    function verificarArquivo(caminhoArquivo) {
+                        try {
+                            fs.accessSync(caminhoArquivo, fs.constants.F_OK);
+                            return true; // O arquivo existe
+                        } catch (err) {
+                            console.log('Arquivo não encontrado');
+                            return false; // O arquivo não existe
+                        }
+                    }
+
+                    // Diretório de downloads e nome do arquivo
+                    const diretorioDownloads = 'C:/Users/Lucas Roncheti/Downloads/NotasFiscais';
+                    const nomeArquivoOriginal = 'danfe.pdf';
+                    const novoNome = `${diretorioDownloads}/${nomeProdutor}-${indice}.pdf`;
+
+                    // Esperar até que o arquivo específico exista
+                    let tempoEspera = 0;
+                    const intervaloEspera = 500; // Intervalo de verificação em milissegundos (0,5 segundos)
+                    const tempoMaximoEspera = 45000; // Tempo máximo de espera em milissegundos (45 segundos)
+
+                    while (!verificarArquivo(`${diretorioDownloads}/${nomeArquivoOriginal}`) && tempoEspera < tempoMaximoEspera) {
+                        await page.waitForTimeout(intervaloEspera);
+                        tempoEspera += intervaloEspera;
+                    }
+
+                    // Verificar se o arquivo existe após a espera
+                    if (verificarArquivo(`${diretorioDownloads}/${nomeArquivoOriginal}`)) {
+                        // Renomear o arquivo baixado
+                        fs.renameSync(`${diretorioDownloads}/${nomeArquivoOriginal}`, novoNome);
+                        console.log('Arquivo renomeado com sucesso.');
+                        console.log('Nota Salva em sua pasta de Downloads =)');
+                    } else {
+                        console.log('O arquivo não foi encontrado dentro do tempo máximo de espera.');
+                    }
+
+                    clearInterval(intervalId);
+                } catch (error) {
+                    console.error('Erro ao mover o arquivo:', error);
+                }
+            } else {
+                console.log('Aguardando o arquivo na pasta de downloads...');
+            }
+        }, intervalo);
+
+
 
 
     } catch (error) {
         console.error('Erro:', error);
     } finally {
-        // await browser.close();
+        //  await browser.close();
     }
 
 })();
