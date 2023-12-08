@@ -1,0 +1,11 @@
+.seletorEmitirNotas{
+    width: 30px;
+    height: 30px;
+    background-color: var(--cor04);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%) rotate(45deg);
+    box-shadow: var(--shadow03);
+    z-index: 1;
+}

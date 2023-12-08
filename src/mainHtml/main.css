@@ -66,15 +66,25 @@ header {
     width: 100%;
     height: 40px;
     display: flex;
+    justify-content: space-evenly;
+
+}
+.divBotao{
+    width: 100%;
+    height: 40px;
+    display: flex;
     justify-content: space-around;
-    z-index: 4;
+
+    position: relative;
+
 }
 
 /* botão produtir rural fila de emissão emitir notas*/
 .buttonAcao {
-    width: 30%;
+    width: 90%;
     height: 100%;
     border-radius: 10px;
+    z-index: 2;
 }
 
 /*Caixa com os inputs de cadastro e barra de progresso*/
@@ -86,7 +96,7 @@ header {
     padding: 10px;
     display: flex;
     justify-content: space-around;
-    z-index: 20;
+    
 }
 
 

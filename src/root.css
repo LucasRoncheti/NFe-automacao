@@ -22,6 +22,7 @@
 
     --shadow01:0px 0px 4px 0px #23dc7aba;
     --shadow02:0px 0px 4px 0px #E42B02;
+    --shadow03:0px 0px 4px 0px #2B4076;
 }
 
 section a{
@@ -38,6 +39,12 @@ section a{
     font-size: 100%;
     color: var(--branco);
     font-weight: 500;
+    cursor: pointer;
+
+}
+
+.botaoVerde:hover{
+    background-color: hsl(120, 100%, 40%);
 }
 
 .botaoVermelho{
@@ -47,8 +54,28 @@ section a{
     font-size: 100%;
     color: var(--branco);
     font-weight: 500;
+    cursor: pointer;
 }
 
+
+
+.botaoAzul{
+    background-color: var(--cor04);
+    box-shadow: var(--shadow03);
+    border: none;
+    font-size: 100%;
+    color: var(--branco);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.botaoAzul:hover {
+    background-color: hsl(216, 90%, 32%);
+}
+
+.botaoAzul:hover + .seletorEmitirNotas{
+    background-color: hsl(216, 90%, 32%);
+}
 
 
 .none{

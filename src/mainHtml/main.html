@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../root.css">
     <link rel="stylesheet" href="filaEmissao.css">
     <link rel="stylesheet" href="produtorRural.css">
+    <link rel="stylesheet" href="emitirNotas.css">
     <title>Sistema de automação de Notas Fiscais </title>
 </head>
 <body>
@@ -21,13 +22,21 @@
             </div>
             <div class="funcoes">
                 <div class="containerBotoes">
-                    <button class="buttonAcao botaoVerde"><img src="" alt="">Produtor Rural</button>
-                    <button class="buttonAcao botaoVerde"><img src="" alt="">Fila de Emissão</button>
-                    <button class="buttonAcao botaoVermelho"><img src="" alt="">Emitir Notas</button>
+                    <div class="divBotao">
+                        <div class="seletorRural"></div>
+                        <button class="buttonAcao botaoVerde"><img src="" alt="">Produtor Rural</button></div>
+                    <div class="divBotao">
+                        <div class="seletor"></div>
+                        <button class="buttonAcao botaoVerde"><img src="" alt="">Fila de Emissão</button></div>
+                    <div class="divBotao">
+                        <div class="seletorEmitirNotas "></div>
+                         <button class="buttonAcao botaoAzul"><img src="" alt="">Emitir Notas</button></div>
+                   
+                   
                 </div>
                
                 <!-- Produtor Rural  -->
-                <div class="seletorRural"></div>
+               
                 <div class="caixaDialogo  ">
                     <div class="row containerProdutorRural">
                         <input class="inputDados numero" type="number" placeholder="NÚMERO">
@@ -44,7 +53,7 @@
 
                   <!-- fila de emissão 
                   <div class="seletor"></div>
-                  <div class="caixaDialogo filaDeEmissao ">
+                  <div class="caixaDialogo  ">
                       <div class="justifyContent _01">
                           <input class="inputDados" type="text" placeholder="NOME DO PRODUTOR">
                           <input class="inputDados" type="text" placeholder="INFORMAÇÕES COMPLEMENTARES">
