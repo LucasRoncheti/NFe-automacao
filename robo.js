@@ -57,7 +57,7 @@ botaoAvancar = '#btn-avancar';
         const scriptDir = path.resolve(__dirname);
 
         // Constrói o caminho para o arquivo HTML local
-        const filePath = `file://${scriptDir}/teste.html`;
+        const filePath = `file://${scriptDir}/src/olaRobo/paginaRobo.html`;
 
         // Carrega a página local
         await page1.goto(filePath);

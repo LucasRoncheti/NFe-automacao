@@ -1,3 +1,3 @@
 @echo off
-start /min node robo.js
+start /min npm start
 timeout /nobreak /t 1 >nul
