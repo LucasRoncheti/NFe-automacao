@@ -1,4 +1,4 @@
-body{
+body {
     background-color: var(--branco);
     width: 100vw;
     height: 100vh;
@@ -8,19 +8,21 @@ body{
     align-items: center;
 }
 
-main{
+main {
     max-width: 1000px;
     min-width: 1000px;
     height: 100%;
-    background-color:var(--cor05);
+    background-color: var(--cor05);
 
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow: auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.131);
 }
 
-header{
+/*cabeçalho*/
+header {
     width: 100%;
     height: 40px;
     background-color: var(--cor04);
@@ -30,37 +32,165 @@ header{
     color: var(--branco);
 }
 
+.imgRobo{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-.containerFuncoes{
-    width: 920px;
-    height: 270px;
-    border-bottom: solid var(--cor04); 
+
+/*Container com as principais funções */
+.containerFuncoes {
+    width: 92%;
+    height: 27%;
+    border-bottom: solid var(--cor04);
 
     display: flex;
-   justify-content: center;
-   align-items: center;
+    justify-content: center;
+    align-items: center;
 }
 
-.funcoes{
-    width: 716px;
-    height: 188px;
+.funcoes {
+    width: 92%;
+    height: 77%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: space-between;
 
 }
-.containerBotoes{
+
+.containerBotoes {
     width: 100%;
-    height: 50px;
+    height: 40px;
     display: flex;
     justify-content: space-around;
 }
-.buttonAcao{
-    width:212px;
+
+/* botão produtir rural fila de emissão emitir notas*/
+.buttonAcao {
+    width: 30%;
     height: 100%;
     border-radius: 10px;
 }
-.containerLista{
-    width: 920px;
-    height: 640px;
+
+/*Caixa com os inputs de cadastro e barra de progresso*/
+.caixaDialogo {
+    width: 97%;
+    height: calc(100% - 60px);
+    background-color: var(--branco);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 20;
+}
+
+
+/*divs com os inputs fila de emissão*/
+._01{
+    width: 400px;
+   
+}
+._02{
+    width: 100px;
+}
+._03{
+    width: 100px;
+}
+
+/*botão adicionar*/
+
+.botao2{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+
+}
+.botao2 > .buttonAdicionar{
+    width: 100%;
+    height: 80%;
+    background-color: var(--cor02);
+    border-radius: 5px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.botao2 > .buttonAdicionar:hover{
+    width: 95%;
+    height: 75%;
+    background-color:rgb(242, 46, 46);
+    transition: 0.2s;
+    cursor: pointer;
+    box-shadow: var(--shadow02);
+
+}
+
+.botao2 > .buttonAdicionar img{
+    width: 35%;
+}
+.botao2 .buttonAdicionar:hover img {
+    width: 55%;
+    transition: 0.2s;
+  }
+
+  .seletor{
+    width: 30px;
+    height: 30px;
+
+    background-color: red;
+    transform: rotate(45deg);
+    background-color: var(--cor01);
+    position: absolute;
+    top: 12%;
+    box-shadow: var(--shadow01);
+
+  }
+
+
+/* input de que contém os dados do produtor */
+.inputDados{
+    width: 100%;
+    height: 30%;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--cor05);
+    text-align: center;
+    color: var(--cor04);
+    font-size: 80%;
+}
+
+.inputDados:focus{
+    border: 2px solid var(--cor01); 
+    outline: none;
+    font-size: 80%;
+    color: var(--cor04);
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+
+/*container comm os inputs fila de emissaão*/
+
+.filaDeEmissao{
+    border: solid 2px var(--cor01);
+    box-shadow: var(--shadow01);
+}
+
+/* Container com a lista de notas a ser tirada*/
+
+.containerLista {
+    width: 92%;
+    height: 62%;
     border-radius: 20px;
     margin-top: 30px;
     background-color: var(--branco);
+    overflow: hidden;
 }
+
