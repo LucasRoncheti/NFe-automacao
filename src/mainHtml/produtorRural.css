@@ -1,0 +1,32 @@
+.seletorRural{
+    width: 30px;
+    height: 30px;
+    display: none;
+    background-color: red;
+    transform: rotate(45deg);
+    background-color: var(--cor01);
+    position: absolute;
+    left: 10px;
+    top: 12%;
+    box-shadow: var(--shadow01);
+    z-index: 0;
+
+  }
+
+.containerProdutorRural{
+    width: 100%;
+
+}
+
+.numero{
+    width: 20%;
+}
+.produtorRural{
+    width: 70%;
+}
+.login{
+   width: 45%;
+}
+.senha{
+   width: 45%;
+}

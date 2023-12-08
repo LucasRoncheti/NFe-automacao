@@ -67,6 +67,7 @@ header {
     height: 40px;
     display: flex;
     justify-content: space-around;
+    z-index: 4;
 }
 
 /* botão produtir rural fila de emissão emitir notas*/
@@ -88,70 +89,6 @@ header {
     z-index: 20;
 }
 
-
-/*divs com os inputs fila de emissão*/
-._01{
-    width: 400px;
-   
-}
-._02{
-    width: 100px;
-}
-._03{
-    width: 100px;
-}
-
-/*botão adicionar*/
-
-.botao2{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 10%;
-
-}
-.botao2 > .buttonAdicionar{
-    width: 100%;
-    height: 80%;
-    background-color: var(--cor02);
-    border-radius: 5px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.botao2 > .buttonAdicionar:hover{
-    width: 95%;
-    height: 75%;
-    background-color:rgb(242, 46, 46);
-    transition: 0.2s;
-    cursor: pointer;
-    box-shadow: var(--shadow02);
-
-}
-
-.botao2 > .buttonAdicionar img{
-    width: 35%;
-}
-.botao2 .buttonAdicionar:hover img {
-    width: 55%;
-    transition: 0.2s;
-  }
-
-  .seletor{
-    width: 30px;
-    height: 30px;
-
-    background-color: red;
-    transform: rotate(45deg);
-    background-color: var(--cor01);
-    position: absolute;
-    top: 12%;
-    box-shadow: var(--shadow01);
-
-  }
 
 
 /* input de que contém os dados do produtor */

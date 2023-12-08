@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="../root.css">
+    <link rel="stylesheet" href="filaEmissao.css">
+    <link rel="stylesheet" href="produtorRural.css">
     <title>Sistema de automação de Notas Fiscais </title>
 </head>
 <body>
@@ -24,27 +26,43 @@
                     <button class="buttonAcao botaoVermelho"><img src="" alt="">Emitir Notas</button>
                 </div>
                
-                <!-- fila de emissão  -->
-                <div class="seletor"></div>
-                <div class="caixaDialogo filaDeEmissao ">
-                    <div class="justifyContent _01">
-                        <input class="inputDados" type="text" placeholder="NOME DO PRODUTOR">
-                        <input class="inputDados" type="text" placeholder="INFORMAÇÕES COMPLEMENTARES">
+                <!-- Produtor Rural  -->
+                <div class="seletorRural"></div>
+                <div class="caixaDialogo  ">
+                    <div class="row containerProdutorRural">
+                        <input class="inputDados numero" type="number" placeholder="NÚMERO">
+                        <input class="inputDados produtorRural" type="text" placeholder="PRODUTOR RURAL">
+                        <input class="inputDados login" type="text" placeholder="LOGIN">
+                        <input class="inputDados senha" type="text" placeholder="SENHA">
                     </div>
-                    <div class="justifyContent _02">
-                        <input class="inputDados" type="text" placeholder="PRODUTO">
-                        
-                        <input class="inputDados" type="number" placeholder="NCM">
-                    </div>
-                    <div class="justifyContent _03">
-                        <input class="inputDados" type="number" placeholder="QUANTIDADE">
-                        <input class="inputDados" type="number" placeholder="VALOR UNIT">
-                    </div>
+                    
                     <div class=" botao2">
-                        <button class="buttonAdicionar"><img  src="../images/add.svg" alt="Icone add"></button>
+                        <button class="buttonAdicionar"><img  src="../images/save.svg.svg" alt="Icone save"></button>
                     </div>
                     
                 </div>
+
+                  <!-- fila de emissão 
+                  <div class="seletor"></div>
+                  <div class="caixaDialogo filaDeEmissao ">
+                      <div class="justifyContent _01">
+                          <input class="inputDados" type="text" placeholder="NOME DO PRODUTOR">
+                          <input class="inputDados" type="text" placeholder="INFORMAÇÕES COMPLEMENTARES">
+                      </div>
+                      <div class="justifyContent _02">
+                          <input class="inputDados" type="text" placeholder="PRODUTO">
+                          
+                          <input class="inputDados" type="number" placeholder="NCM">
+                      </div>
+                      <div class="justifyContent _03">
+                          <input class="inputDados" type="number" placeholder="QUANTIDADE">
+                          <input class="inputDados" type="number" placeholder="VALOR UNIT">
+                      </div>
+                      <div class=" botao2">
+                          <button class="buttonAdicionar"><img  src="../images/add.svg" alt="Icone add"></button>
+                      </div>
+                      
+                  </div> -->
 
                 
             </div>
