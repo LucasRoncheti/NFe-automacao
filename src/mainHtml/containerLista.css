@@ -1,0 +1,85 @@
+/* Container com a lista de notas a ser tirada*/
+
+.mainContainerLista {
+    width: 92%;
+    height: 62%;
+    border-radius: 20px;
+    margin-top: 30px;
+    background-color: var(--branco);
+    position: relative;
+}
+
+.numeroItens{
+    width: 25px;
+    height: 25px;
+    background-color: var(--cor02);
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: -12.5px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+}
+
+
+.containerLista{
+    width: 100%;
+    height: 100%;
+    padding: 20px 15px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.listaItem{
+    width: 100%;
+    height: 60px;
+    background-color: var(--cor04);
+    border-radius: 7px;
+    display: flex;
+    padding: 3px 3px 3px 0px;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+.imgLista{
+    height: 60%;
+    margin: auto;
+ 
+}
+
+.apagarIten{
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background-color: var(--cor02);
+    position: absolute;
+    right: -6px;
+    top: -6px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.containerDescricaoitens{
+  
+    width: 95%;
+    height: 100%;
+    padding: 5px;
+    background-color: var(--cor05);
+    border-radius: 2px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 90%;
+}
+

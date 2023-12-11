@@ -85,6 +85,10 @@ header {
     height: 100%;
     border-radius: 10px;
     z-index: 2;
+    padding: 0% 15%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 /*Caixa com os inputs de cadastro e barra de progresso*/
@@ -130,14 +134,4 @@ header {
     box-shadow: var(--shadow01);
 }
 
-/* Container com a lista de notas a ser tirada*/
-
-.containerLista {
-    width: 92%;
-    height: 62%;
-    border-radius: 20px;
-    margin-top: 30px;
-    background-color: var(--branco);
-    overflow: hidden;
-}
 

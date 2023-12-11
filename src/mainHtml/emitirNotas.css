@@ -1,4 +1,4 @@
-.seletorEmitirNotas{
+.seletorEmitirNotas {
     width: 30px;
     height: 30px;
     background-color: var(--cor04);
@@ -8,4 +8,119 @@
     transform: translate(-50%) rotate(45deg);
     box-shadow: var(--shadow03);
     z-index: 1;
+
+}
+
+#emitirNotas {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.barraProgresso {
+    width: 700px;
+    height: 40%;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    align-items: center;
+}
+
+.progresso {
+
+    width: calc(95%/7);
+    height: 100%;
+    background-color: var(--cor03);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 80%;
+    font-weight: 600;
+    color: var(--branco);
+    text-align: center
+}
+
+.setaProgresso {
+    position: absolute;
+    left: calc(100px - 20px);
+    height: 100%;
+    animation: animacaoSetaProgresso 01s infinite ease-in-out;
+}
+
+@keyframes animacaoSetaProgresso {
+    0% {
+        height: 100%;
+    }
+
+    50% {
+        height: 80%;
+    }
+
+    100% {
+        height: 100%;
+    }
+}
+
+.verde {
+    background-color: var(--cor01);
+
+}
+
+.botaoloading {
+    background-color: var(--cor02);
+    box-shadow: var(--shadow02);
+}
+
+.botaoloading:hover {
+    background-color: hsl(0, 90%, 49%);
+}
+
+.animacaoLoading {
+    animation: animacaoLoading 1s infinite linear;
+}
+
+@keyframes animacaoLoading {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+}
+
+/* div que faz o efeito de progresso na barra */
+
+.efeitoProgresso{
+    position: absolute;
+    height: 100%;
+    width: 100px;
+    background-color:rgb(158, 224, 211);
+    opacity: 0.2;
+    animation: barraProgresso 2s infinite linear;
+    z-index: 333;
+    mix-blend-mode: luminosity;
+}
+@keyframes barraProgresso{
+    0%{
+       left: 0%;
+       width: 0px;
+    }
+    14%{
+        left: 10%;
+        width: 100px;
+    }
+
+    86%{
+        left: 86%;
+        width: 100px;
+    }
+    100%{
+        width: 0px;
+       left: 100%;
+    }
 }

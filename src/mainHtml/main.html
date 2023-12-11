@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,10 @@
     <link rel="stylesheet" href="filaEmissao.css">
     <link rel="stylesheet" href="produtorRural.css">
     <link rel="stylesheet" href="emitirNotas.css">
+    <link rel="stylesheet" href="containerLista.css">
     <title>Sistema de automação de Notas Fiscais </title>
 </head>
+
 <body>
     <main>
         <header>
@@ -23,63 +26,113 @@
             <div class="funcoes">
                 <div class="containerBotoes">
                     <div class="divBotao">
-                        <div class="seletorRural"></div>
-                        <button class="buttonAcao botaoVerde"><img src="" alt="">Produtor Rural</button></div>
+                        <div id="seletorRural" class="seletorRural"></div>
+                        <button onclick="produtorRural()" class="buttonAcao botaoVerde"><img src="../images/person.svg"
+                                alt="">Produtor
+                            Rural</button>
+                    </div>
                     <div class="divBotao">
-                        <div class="seletor"></div>
-                        <button class="buttonAcao botaoVerde"><img src="" alt="">Fila de Emissão</button></div>
+                        <div id="seletor" class="seletor"></div>
+                        <button onclick="FilaDeEmissao()" class="buttonAcao botaoVerde"><img
+                                src="../images/iconeFila.svg" alt="">Fila de
+                            Emissão</button>
+                    </div>
                     <div class="divBotao">
-                        <div class="seletorEmitirNotas "></div>
-                         <button class="buttonAcao botaoAzul"><img src="" alt="">Emitir Notas</button></div>
-                   
-                   
+                        <div id="seletorEmitirNotas" class="botaoloading seletorEmitirNotas "></div>
+                        <button id="botaoEmissao" onclick="emitirNotas()" class="botaoloading buttonAcao botaoAzul"><img
+                                class="animacaoLoading" id="imgEmitirNotas" src="../images/play.svg" alt="">Emitir
+                            Notas</button>
+                    </div>
+
+
                 </div>
-               
+
                 <!-- Produtor Rural  -->
-               
-                <div class="caixaDialogo  ">
+
+                <div id="produtorRural" class="caixaDialogo  ">
                     <div class="row containerProdutorRural">
                         <input class="inputDados numero" type="number" placeholder="NÚMERO">
                         <input class="inputDados produtorRural" type="text" placeholder="PRODUTOR RURAL">
                         <input class="inputDados login" type="text" placeholder="LOGIN">
                         <input class="inputDados senha" type="text" placeholder="SENHA">
                     </div>
-                    
+
                     <div class=" botao2">
-                        <button class="buttonAdicionar"><img  src="../images/save.svg.svg" alt="Icone save"></button>
+                        <button class="buttonAdicionar"><img src="../images/save.svg.svg" alt="Icone save"></button>
                     </div>
-                    
+
                 </div>
 
-                  <!-- fila de emissão 
-                  <div class="seletor"></div>
-                  <div class="caixaDialogo  ">
-                      <div class="justifyContent _01">
-                          <input class="inputDados" type="text" placeholder="NOME DO PRODUTOR">
-                          <input class="inputDados" type="text" placeholder="INFORMAÇÕES COMPLEMENTARES">
-                      </div>
-                      <div class="justifyContent _02">
-                          <input class="inputDados" type="text" placeholder="PRODUTO">
-                          
-                          <input class="inputDados" type="number" placeholder="NCM">
-                      </div>
-                      <div class="justifyContent _03">
-                          <input class="inputDados" type="number" placeholder="QUANTIDADE">
-                          <input class="inputDados" type="number" placeholder="VALOR UNIT">
-                      </div>
-                      <div class=" botao2">
-                          <button class="buttonAdicionar"><img  src="../images/add.svg" alt="Icone add"></button>
-                      </div>
-                      
-                  </div> -->
+                <!--Fila de emissão-->
+                <div id="filaEmissao" class="caixaDialogo  ">
+                   
+                    <div class="justifyContent _01">
+                        <input class="inputDados" type="text" placeholder="NOME DO PRODUTOR">
+                        <input class="inputDados" type="text" placeholder="INFORMAÇÕES COMPLEMENTARES">
+                    </div>
+                    <div class="justifyContent _02">
+                        <input class="inputDados" type="text" placeholder="PRODUTO">
 
-                
+                        <input class="inputDados" type="number" placeholder="NCM">
+                    </div>
+                    <div class="justifyContent _03">
+                        <input class="inputDados" type="number" placeholder="QUANTIDADE">
+                        <input class="inputDados" type="number" placeholder="VALOR UNIT">
+                    </div>
+                    <div class=" botao2">
+                        <button class="buttonAdicionar"><img src="../images/add.svg" alt="Icone add"></button>
+                    </div>
+
+                </div>
+
+                <!--Emitir Notas-->
+
+                <div id="emitirNotas" class="caixaDialogo  ">
+                    <p>Nome do Produtor</p>
+                    <div class="barraProgresso">
+                        <div class="efeitoProgresso"></div>
+                        <img class="setaProgresso" src="../images/arrow.svg"
+                            alt="Sete que mostra o progresso ao emitir as notas">
+                        <div class="progresso verde">1 Login</div>
+                        <div class="progresso">2 Remetente Destinatário</div>
+                        <div class="progresso">3 Produtos</div>
+                        <div class="progresso">4 Frete</div>
+                        <div class="progresso">5 Confirmação</div>
+                        <div class="progresso">6 Dua</div>
+                        <div class="progresso">7 Autorização</div>
+                    </div>
+
+                </div>
+
+
+
             </div>
         </section>
 
-        <section class="containerLista">
+        <section class="mainContainerLista">
+            <div class="numeroItens">0</div>
+            <div class="containerLista">
+
+                <div class="listaItem">
+                    <button class="apagarIten"><img src="../images/trash.svg" alt=""></button>
+                    <img class="imgLista" src="../images/fila.svg" alt="">
+                    <div class="containerDescricaoitens">
+                        <p><strong>Produtor:Nome do produtor </strong></p>
+                        <p>Produto: Gengibre Fresco </p>
+                        <p>Quant.: 10 </p>
+                        <p>Valor Unit.: R$ 100,00</p>
+                        <p>Informações Complementares: Mercadoria destinada a importação.</p>
+                    </div>
+                </div>
+
+            </div>
+
 
         </section>
     </main>
 </body>
+
 </html>
+
+
+<script src="js/botaoSelecao.js"></script>
