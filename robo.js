@@ -26,7 +26,7 @@ valorUnit = '1';
 desconto = "";
 indice = '1';
 ncm = '09101100';
-complementares = 'Mercadoria destinada a exportação';
+complementares = 'Mercadoria destinada a exportação.';
 
 // seletor botão avançar 
 botaoAvancar = '#btn-avancar';

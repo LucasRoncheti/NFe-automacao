@@ -33,8 +33,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    overflow: hidden;
+   
+    overflow: auto;
+    
 }
 
 .listaItem{
@@ -47,6 +48,7 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
+    margin: 5px 0px;
 }
 .imgLista{
     height: 60%;

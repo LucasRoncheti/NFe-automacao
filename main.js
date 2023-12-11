@@ -51,3 +51,4 @@ app.on('activate', function () {
   // No macOS, recria uma janela na aplicação quando o ícone no dock é clicado.
   if (mainWindow === null) createWindow();
 });
+
