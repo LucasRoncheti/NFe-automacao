@@ -16,7 +16,7 @@ function FilaDeEmissao() {
     //altera botão emissor de notas 
     document.getElementById("seletorEmitirNotas").style.display = "none";
     minhaImagem = document.getElementById('imgEmitirNotas')
-    minhaImagem.src = "../images/play.svg"
+    minhaImagem.src = "http://localhost:3100/static/images/play.svg"
     minhaImagem.classList.remove('animacaoLoading')
     document.getElementById("emitirNotas").style.display = "none";
 
@@ -43,7 +43,7 @@ function produtorRural() {
     //altera botão emissor de notas 
     document.getElementById("seletorEmitirNotas").style.display = "none";
     minhaImagem = document.getElementById('imgEmitirNotas')
-    minhaImagem.src = "../images/play.svg"
+    minhaImagem.src = "http://localhost:3100/static/images/play.svg"
     minhaImagem.classList.remove('animacaoLoading')
     document.getElementById("emitirNotas").style.display = "none";
 
@@ -69,8 +69,10 @@ function emitirNotas() {
     //altera botão emissor de notas 
     document.getElementById("seletorEmitirNotas").style.display = "block";
     minhaImagem = document.getElementById('imgEmitirNotas')
-    minhaImagem.src = "../images/Asset 1.png"
+    minhaImagem.src = "http://localhost:3100/static/images/Asset 1.png"
     minhaImagem.classList.toggle('animacaoLoading')
+
+
     document.getElementById("emitirNotas").style.display = "flex";
 
     //seleciona o botão emissor notas e adiciona a classe que altera a cor  se ela  não estiver presente 

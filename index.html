@@ -1,0 +1,47 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Dados</title>
+</head>
+<body>
+    <h1>Enviar Dados para o Backend</h1>
+    <form id="dadosForm">
+        <label for="produto">Produto:</label>
+        <input type="text" id="produto" name="produto" required><br>
+
+        <label for="quantidade">Quantidade:</label>
+        <input type="text" id="quantidade" name="quantidade" required><br>
+
+        <!-- Adicione outros campos conforme necessário -->
+
+        <button type="button" onclick="enviarDados()">Enviar Dados</button>
+    </form>
+
+    <script>
+        function enviarDados() {
+            const site = document.getElementById('produto').value;
+            const quantidade = document.getElementById('quantidade').value;
+
+            fetch('/enviar-dados', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    site,
+                    quantidade,
+                    // Adicione outros valores conforme necessário
+                }),
+            })
+            .then(response => response.text())
+            .then(message => {
+                alert(message); // Exibe a mensagem recebida do servidor
+            });
+        }
+    </script>
+</body>
+</html>

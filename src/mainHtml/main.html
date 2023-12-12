@@ -4,14 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="../root.css">
-    <link rel="stylesheet" href="filaEmissao.css">
-    <link rel="stylesheet" href="produtorRural.css">
-    <link rel="stylesheet" href="emitirNotas.css">
-    <link rel="stylesheet" href="containerLista.css">
+    <link rel="stylesheet" href="http://localhost:3100/static/mainHtml/main.css">
+    <link rel="stylesheet" href="http://localhost:3100/static/mainHtml/root.css">
+    <link rel="stylesheet" href="http://localhost:3100/static/mainHtml/filaEmissao.css">
+    <link rel="stylesheet" href="http://localhost:3100/static/mainHtml/produtorRural.css">
+    <link rel="stylesheet" href="http://localhost:3100/static/mainHtml/emitirNotas.css">
+    <link rel="stylesheet" href="http://localhost:3100/static/mainHtml/containerLista.css">
     <title>Sistema de automação de Notas Fiscais </title>
 </head>
+
+<style>
+    
+</style>
 
 <body>
     <main>
@@ -19,29 +23,30 @@
             <p>Sistema de Automação de Notas | Reinholz Ginger Comércio de Raízes LTDA</p>
         </header>
 
-        <section class="containerFuncoes">
+        <section  class="containerFuncoes">
             <div class="imgRobo">
-                <img src="../images/robozinho.svg" alt="">
+                <img src="http://localhost:3100/static/images/robozinho.svg" alt="">
             </div>
             <div class="funcoes">
                 <div class="containerBotoes">
                     <div class="divBotao">
                         <div id="seletorRural" class="seletorRural"></div>
-                        <button onclick="produtorRural()" class="buttonAcao botaoVerde"><img src="../images/person.svg"
+                        <button onclick="produtorRural()" class="buttonAcao botaoVerde"><img src="http://localhost:3100/static/images/person.svg"
                                 alt="">Produtor
                             Rural</button>
                     </div>
                     <div class="divBotao">
                         <div id="seletor" class="seletor"></div>
                         <button onclick="FilaDeEmissao()" class="buttonAcao botaoVerde"><img
-                                src="../images/iconeFila.svg" alt="">Fila de
+                                src="http://localhost:3100/static/images/iconeFila.svg" alt="">Fila de
                             Emissão</button>
                     </div>
                     <div class="divBotao">
                         <div id="seletorEmitirNotas" class="botaoloading seletorEmitirNotas "></div>
-                        <button id="botaoEmissao" onclick="emitirNotas()" class="botaoloading buttonAcao botaoAzul"><img
-                                class="animacaoLoading" id="imgEmitirNotas" src="../images/play.svg" alt="">Emitir
-                            Notas</button>
+                        <button id="botaoEmissao" onclick="emitirNotas()" class="botaoloading buttonAcao botaoAzul">
+                            <img class="animacaoLoading" id="imgEmitirNotas" src="http://localhost:3100/static/images/play.svg" alt="">
+                           
+                            Emitir Notas</button>
                     </div>
 
 
@@ -59,7 +64,7 @@
                        
                     </form>
                     <div class=" botao2">
-                        <button type="submit" onclick="cadastroProdutores()" class="buttonAdicionar"><img src="../images/save.svg.svg" alt="Icone save"></button>
+                        <button type="submit" onclick="cadastroProdutores()" class="buttonAdicionar"><img src="http://localhost:3100/static/images/save.svg.svg" alt="Icone save"></button>
                     </div>
 
                     
@@ -83,7 +88,7 @@
                         <input id="valorUnitario" class="inputDados" type="number" placeholder="VALOR UNIT">
                     </div>
                     <div class=" botao2">
-                        <button onclick="criarNovaDiv()" class="buttonAdicionar"><img src="../images/add.svg" alt="Icone add"></button>
+                        <button onclick="criarNovaDiv()" class="buttonAdicionar"><img src="http://localhost:3100/static/images/add.svg" alt="Icone add"></button>
                     </div>
 
                 </div>
@@ -94,7 +99,7 @@
                     <p>Nome do Produtor</p>
                     <div class="barraProgresso">
                         <div class="efeitoProgresso"></div>
-                        <img class="setaProgresso" src="../images/arrow.svg"
+                        <img class="setaProgresso" src="http://localhost:3100/static/images/arrow.svg"
                             alt="Sete que mostra o progresso ao emitir as notas">
                         <div class="progresso verde">1 Login</div>
                         <div class="progresso">2 Remetente Destinatário</div>
@@ -121,12 +126,38 @@
 
         </section>
     </main>
+
+
+
 </body>
 
 </html>
 
-<script src="../mainHtml/js/audio.js"></script>
-<script src="js/botaoSelecao.js"></script>
-<script src="../mainHtml/js/produtorRural.js"></script>
+<script>
 
-<script src="../mainHtml/js/adcionarItensLista.js"></script>
+    // envia os dados para o node pelo server porta 3000
+    function enviarDados() {
+        const site = "https://www.google.com";
+        
+        fetch('/enviar-dados', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                site,
+            }),
+        })
+        .then(response => response.text())
+        .then(message => {
+            alert(message); // Exibe a mensagem recebida do servidor
+        });
+    }
+</script>
+
+
+<script src="http://localhost:3100/static/mainHtml/js/audio.js"></script>
+<script src="http://localhost:3100/static/mainHtml/js/botaoSelecao.js"></script>
+<script src="http://localhost:3100/static/mainHtml/js/produtorRural.js"></script>
+
+<script src="http://localhost:3100/static/mainHtml/js/adcionarItensLista.js"></script>
