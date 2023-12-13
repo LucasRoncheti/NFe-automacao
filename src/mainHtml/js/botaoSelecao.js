@@ -55,7 +55,8 @@ function produtorRural() {
 
 }
 
-//funcao que sao ser clicada troca as cores e  troca a div com os campos a ser preenchidos 
+//funcao que ao ser clicada troca as cores e  troca a div com os campos a ser preenchidos 
+// e inicia o processo de emissao das notas 
 
 function emitirNotas() {
     //altera o botão produtor rural

@@ -1,8 +1,11 @@
 // função que adiciona a div na lista de itens das notas 
+// e criar um array para mandar os dados para o backEnd (node.js e puppeterr) para emitir as notas 
 
 // container que irá receber as divsListas 
 let container = document.getElementById('containerLista')
 
+//aray que guarda os dados que serão preenchidos nas notas 
+var dadosNotas = []
 
 //div que recebe a soma da lista de itens 
 divQuantidade = document.getElementById('numeroItens')
@@ -17,14 +20,21 @@ let criarNovaDiv = () => {
     let quantidade = document.getElementById('quantidade').value
     let valorUnitario = document.getElementById('valorUnitario').value
 
+   
 
+    // verifica se tem algum campo sem ser preenchido 
     if (nomeProdutor === '' || quantidade === '' || valorUnitario === '' || produto === '') {
         audio("error")
         return
     } else {
+
+        //------------------------------------------------
+        infoNotas(index, nomeProdutor,infoComplementares, produto,ncm,quantidade,valorUnitario)
+        //------------------------------------------------
+
         container.innerHTML += `
         <div id='listaItem${index}' class="listaItem">
-            <button onclick="apagarDiv('listaItem${index}')" class="apagarIten">
+            <button onclick="apagarDiv('listaItem${index}',${index})" class="apagarIten">
             <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10.9207 2.66819C10.8382 2.38701 10.7832 2.2308 10.7832 2.2308C10.6938 1.94025 10.4669 1.94025 10.13 1.89026L8.30454 1.68094C8.07764 1.64658 8.07764 1.64658 7.98826 1.4685C7.68916 0.856157 7.59634 0.5 7.26975 0.5H3.72877C3.40217 0.5 3.31279 0.856157 3.0137 1.47162C2.92431 1.64658 2.92431 1.64658 2.69742 1.68407L0.868483 1.89339C0.535012 1.94337 0.294363 1.97149 0.204979 2.26204C0.204979 2.26204 0.163725 2.39013 0.0777789 2.66819C-0.0322321 3.03996 -0.0769241 2.99935 0.301239 2.99935H10.6973C11.0754 3.00247 11.0342 3.03996 10.9207 2.66819ZM9.74156 3.99909H1.25696C0.686277 3.99909 0.658774 4.06782 0.693153 4.45834L1.33603 12.0376C1.39103 12.4219 1.43229 12.5 1.93765 12.5H9.06086C9.56623 12.5 9.60748 12.4219 9.66249 12.0376L10.3054 4.45834C10.3397 4.0647 10.3122 3.99909 9.74156 3.99909Z" fill="white"/>
             </svg>
@@ -53,17 +63,40 @@ let criarNovaDiv = () => {
 
 }
 
-
-let apagarDiv = (id) => {
+let apagarDiv = (id,index) => {
     element = document.getElementById(id);
     element.remove();
     contarDivs()
+
+    dadosNotas.splice(index, 1)
+
+    console.log(dadosNotas)
+
 }
 
+// faz a contagem das divs e joga o valor no display vermelho  
 
 let contarDivs = () => {
 
     numeroDivs = container.querySelectorAll('.listaItem')
     numeroDivsContadas = numeroDivs.length
     divQuantidade.innerHTML = numeroDivsContadas
+}
+
+
+// Interagindo com os dados em arrrays 
+let infoNotas = (index, nomeProdutor,infoComplementares, produto,ncm,quantidade,valorUnitario) => {
+
+    let objeto = {
+        index,
+        nomeProdutor,
+        infoComplementares,
+        produto,
+        ncm,
+        quantidade,
+        valorUnitario
+    }
+
+    dadosNotas.push(objeto)
+    console.log(dadosNotas)
 }

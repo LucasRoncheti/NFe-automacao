@@ -4,7 +4,9 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "rob": "node --watch robo.mjs",
+    "express": "node express-server.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +16,7 @@
     "electron-is-dev": "^2.0.0",
     "express": "^4.18.2",
     "fs-extra": "^11.2.0",
+    "npm-watch": "^0.11.0",
     "puppeteer": "^21.4.1"
   },
   "devDependencies": {
