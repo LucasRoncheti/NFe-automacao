@@ -1,5 +1,8 @@
 import puppeteer from 'puppeteer';
 import path from 'path';
+import fs from 'fs';
+import fsx from 'fs-extra';
+
 
 //logica para receber os dados do html 
 import express from 'express';
@@ -24,51 +27,57 @@ app.get('/', (req, res) => {
 
 
 
-// gera as respostar do back para o front
-var condicional = 1;
+// gera as respostar do back para o front com o pregresso da nota 
 
-app.post('/receberResposta', (req, res) => {
-
-    const { indiceResposta } = req.body;
-    console.log("indice Resposta:",indiceResposta,"condicional:",condicional);
+var respostaServidorVar = "";
 
 
-    if (condicional === 1 && indiceResposta === "1") {
-        res.send('Login');
-    }
+// manda ping com o real progresso da emissão da nota
+app.get('/pingServidor', (req, res) => {
+    // Configuração de cabeçalhos para SSE
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
 
-    if (condicional === 2 && indiceResposta === "2") {
-        res.send('Destinatario');
-    }
+    // Envio de dados para o cliente a cada 1 segundo (exemplo)
+    const intervalId = setInterval(() => {
 
-    if (condicional === 3 && indiceResposta === "3") {
-        res.send('Produtos');
-    }
+        if (respostaServidorVar === "") {
 
-    if (condicional === 4 && indiceResposta === "4") {
-        res.send('Frete');
-    }
+        } else {
+            res.write(`data: ${respostaServidorVar}\n\n`);
+        }
 
-    if (condicional === 5 && indiceResposta === "5") {
-        res.send('Confirmação');
-    }
+        if (respostaServidorVar === "error") {
+            clearInterval(intervalId);
+            res.end();
 
-    if (condicional === 6 && indiceResposta === "6") {
-        res.send('Dua');
-    }
+            respostaServidorVar = ""
 
-    if (condicional === 7 && indiceResposta === "7") {
-        res.send('Autorização');
-    }
+        }
 
-    if (condicional === 8 && indiceResposta === "8") {
-        res.send('Nota Emitida com sucesso');
-    }
+    
 
-    if (condicional === 500 ) {
-        res.send('Erro ao emitir nota');
-    }
-})
+        // if (respostaServidorVar === "Sucesso--") {
+        //     clearInterval(intervalId);
+        //     res.end();
+
+        //     respostaServidorVar = ""
+
+        // }
+
+     
+
+
+    },10);
+
+    // // Encerrar a conexão após 10 segundos (exemplo)
+    // setTimeout(() => {
+    //   clearInterval(intervalId);
+    //   res.end();
+    // }, 10000);
+});
+
 //--------------------------------------
 
 
@@ -79,16 +88,14 @@ app.post('/enviar-dados', (req, res) => {
         return;
     }
 
-
-
     const { indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario } = req.body;
 
     // Lógica para processar os dados e enviar uma resposta
 
-    gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario);
+     gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario);
 
 
-     res.send('Dados recebidos com sucesso!');
+    res.send('Dados recebidos com sucesso!');
 });
 
 app.listen(port, () => {
@@ -98,7 +105,7 @@ app.listen(port, () => {
 
 
 
-// url do site sefaz 
+
 
 
 //variaveis com as senha e login do usuário 
@@ -130,6 +137,11 @@ const email = 'reinholzginger@hotmail.com';
 // seletor botão avançar 
 let botaoAvancar = '#btn-avancar';
 
+function delay(time) {
+    return new Promise(function (resolve) {
+        setTimeout(resolve, time);
+    });
+}
 
 async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario) {
 
@@ -141,7 +153,8 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
 
     });
     const page = await browser.newPage();
-    const page1 = await browser.newPage();
+    //  const page1 = await browser.newPage();
+
 
     await page.setDefaultTimeout(60000);
 
@@ -149,31 +162,33 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
 
 
     try {
-        console.log('Iniciando o processo...')
+
+        respostaServidorVar = "Entrando no site...";
+
         // Navegue até o site do Sefaz
         await page.goto("https://app.sefaz.es.gov.br/NFAe/");
         //'https://app.sefaz.es.gov.br/NFAe/'
         //https://www.google.com
-        condicional = 2
+
         // abre outra aba no navegador
 
         // Obtém o caminho absoluto do diretório do script
-        const scriptDir = path.resolve(__dirname);
+        //const scriptDir = path.resolve(__dirname);
 
         // Constrói o caminho para o arquivo HTML local
-        const filePath = `file://${scriptDir}/src/olaRobo/paginaRobo.html`;
+        //const filePath = `file://${scriptDir}/src/olaRobo/paginaRobo.html`;
 
         // Carrega a página local
-        await page1.goto(filePath);
+        // await page1.goto(filePath);
 
-
+        respostaServidorVar = "Iniciando Login..";
         //define o seletor 
         let produtorRuralSeletor = '[name="ProdutorRural"]';
-      
 
+       
         // espera o seletor aparecer na página 
         await page.waitForSelector(produtorRuralSeletor);
-
+        
         // checa se o elemento foi encontrado
         const produtorRuralButton = await page.$(produtorRuralSeletor);
 
@@ -185,13 +200,13 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
             await page.click(produtorRuralSeletor);
             console.log("Clicando produtor rural");
         }
-
+        respostaServidorVar = "Login...";
         //seleciona e digita o cpf no campo 
         await page.waitForSelector('#div-campo-identificador');
         console.log("Digitando login...");
         await page.type('#cpf', login);
         await page.click('#btncpf');
-
+        respostaServidorVar = "Senha.."
         //espera o campo de senha estar disponível para ser preenchido
         const elementSelector = '#div-campo-senha';
         await page.waitForSelector(elementSelector, { visible: true });
@@ -201,15 +216,20 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         await page.type('#senha', senha);
         await page.keyboard.press('Enter');
 
-        console.log("logando...");
+        respostaServidorVar = "Logando...";
+
+
+        respostaServidorVar = "Logado com Sucesso!"
 
         await page.waitForSelector('.front');
-        console.log("Logado com sucesso!");
+        respostaServidorVar = "Criando nova venda ...";
         // encaminha para a página de nova venda 
         await page.goto('https://app.sefaz.es.gov.br/NFAe/paginas/remetente/emissao.aspx?dGlwbz1WZW5kYSZjb250PTQ');
 
         console.log("Criando nova venda ...");
-
+        
+        
+        respostaServidorVar = "Selecionando propriedade ...";
         // seleciona o endereço da propriedade do produtor rural 
         await page.waitForSelector(".chkbx-propriedade");
         console.log("Selecionando propriedade ...");
@@ -219,10 +239,13 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         await page.click(botaoAvancar);
         console.log("Avançando...");
 
+        respostaServidorVar = "Destinatario"
         //aguarda a página ficar totamente visivel 
         await page.waitForSelector('#form-passo-2', { visible: true });
 
-       
+        respostaServidorVar = "Destinatario"
+        respostaServidorVar = "Preenchendo os dados do destinatário...";
+
         console.log('Preenchendo dados do destinatário ...');
         // preenche a razão social do destinatário 
         await page.type('#DesNome', razaoSocial);
@@ -261,15 +284,15 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         //preenche o email 
         await page.type('#DesEmail', email);
 
-
+        
 
         console.log('Dados preenchidos !');
 
         //avança para a próxima etapa 
         await page.click(botaoAvancar);
         console.log('Avançando...')
-
-        condicional = 3
+        respostaServidorVar = "Preenchendo dados do produto";
+        respostaServidorVar = "Produto"
         //aguarda a página de adicionar produtos ficar totamente visivel 
         await page.waitForSelector('#form-passo-3', { visible: true });
         await page.waitForSelector('#div-descricao-produto-produtor', { visible: true });
@@ -340,6 +363,7 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         await page.type('#Ncm', ncm);
         console.log('ncm adicionado');
 
+        respostaServidorVar = "Preenchendo informações complementares...";
         //adicionar informações complementares 
         await page.click('#lnk-info-complementar-produto');
         await page.waitForSelector('#txt-info-complementar-produto');
@@ -365,11 +389,11 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         //avança para a próxima etapa 
         await page.click(botaoAvancar);
         console.log('Avançando...')
-        condicional = 4
+        respostaServidorVar = "Frete"
         //adicionando frete 
         await page.waitForSelector('#form-passo-4', { visible: true });
         await page.waitForSelector('#responsabilidade', { visible: true });
-
+        respostaServidorVar = "Selecionando frete...";
         // selecionando tipo de fret
         await page.select('#responsabilidade', 'SemFrete');
 
@@ -378,30 +402,36 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         //avança para a próxima etapa 
         await page.click(botaoAvancar);
         console.log('Avançando...');
-        condicional = 5
+
+   
+        respostaServidorVar = "Confirmando dados...";
+        respostaServidorVar = "Confirmando"
         //Confirmando ...
         await page.waitForSelector('#form-passo-5', { visible: true });
+        
         await page.waitForSelector('#remNome', { visible: true });
         console.log('Confirmando dados ...');
-
+       
 
         //avança para a próxima etapa 
         await page.click(botaoAvancar);
-        condicional = 6
+
         //Confirmando ...
         await page.waitForSelector('#form-passo-6', { visible: true });
         await page.waitForSelector('#nDua', { visible: true });
 
-
+        respostaServidorVar = "Dua"
         //avança para a próxima etapa 
         await page.click(botaoAvancar);
         console.log('Avançando...');
-        condicional = 7
 
+        respostaServidorVar = "Autorizacao"
+        
         //Autorização  ...
         await page.waitForSelector('#form-passo-7', { visible: true });
         await page.waitForSelector('#step-7', { visible: true });
         console.log('Preenchendo autorização...');
+        respostaServidorVar = "Autorizando...";
 
         //avança para a próxima etapa 
         await page.click(botaoAvancar);
@@ -412,7 +442,7 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         await page.waitForSelector('#step-8', { visible: true });
         await page.waitForSelector('#divSpin', { visible: false });
         console.log('Fazendo Download...');
-
+        
         const linkSelector = '#lnk-download-danfe-passo-8';
 
         let href;
@@ -430,10 +460,8 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
 
         console.log('Nota Gerada com Sucesso !');
 
+        respostaServidorVar = "Iniciando download";
 
-
-        const fs = require('fs');
-        const fsx = require('fs-extra');
 
         const origemMove = 'C:/Users/Lucas Roncheti/Downloads/danfe.pdf';
         const destinoMove = 'C:/Users/Lucas Roncheti/Downloads/NotasFiscais/danfe.pdf';
@@ -502,28 +530,40 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
                     if (verificarArquivo(`${diretorioDownloads}/${nomeArquivoOriginal}`)) {
                         // Renomear o arquivo baixado
                         fs.renameSync(`${diretorioDownloads}/${nomeArquivoOriginal}`, novoNome);
+                        respostaServidorVar = "Sucesso"
+                        
+                        new Promise(r => setTimeout(r, 10));
+                        respostaServidorVar = "Sucesso--"
+                        
                         console.log('Arquivo renomeado com sucesso.');
                         console.log('Nota Salva em sua pasta de Downloads =)');
+                      
+                        new Promise(r => setTimeout(r, 2500));
+                   
+                        await browser.close();
+                      
                     } else {
                         console.log('O arquivo não foi encontrado dentro do tempo máximo de espera.');
+                        respostaServidorVar = "error"
                     }
 
                     clearInterval(intervalId);
                 } catch (error) {
                     console.error('Erro ao mover o arquivo:', error);
+                    respostaServidorVar = "error"
                 }
             } else {
                 console.log('Aguardando o arquivo na pasta de downloads...');
             }
         }, intervalo);
 
-        condicional = 8
-
-
     } catch (error) {
+        respostaServidorVar = "error"
+
         console.error('Erro:', error);
     } finally {
-          await browser.close();
+
+        
     }
 
 }

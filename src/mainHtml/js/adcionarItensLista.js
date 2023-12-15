@@ -68,9 +68,20 @@ let apagarDiv = (id,index) => {
     element.remove();
     contarDivs()
 
-    dadosNotas.splice(index, 1)
+    valorParaRemover = index
+
+    var indexParaRemover = dadosNotas.findIndex(function(objeto){
+        return objeto.index === valorParaRemover
+    })
+
+    if(indexParaRemover !== -1){
+        
+    dadosNotas.splice(indexParaRemover,1)
+    }
+
 
     console.log(dadosNotas)
+
 
 }
 
@@ -100,3 +111,4 @@ let infoNotas = (index, nomeProdutor,infoComplementares, produto,ncm,quantidade,
     dadosNotas.push(objeto)
     console.log(dadosNotas)
 }
+

@@ -50,6 +50,21 @@
     position: relative;
     margin: 5px 0px;
 }
+
+/*Altera opacidade do elemtento que será apagado */
+.opacidade{
+    animation: esconderDiv 3s linear forwards;
+}
+@keyframes esconderDiv{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+        display: none;
+    }
+}
+
 .imgLista{
     height: 60%;
     margin: auto;

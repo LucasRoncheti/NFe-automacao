@@ -76,17 +76,17 @@
                 <div id="filaEmissao" class="caixaDialogo  ">
                    
                     <div class="justifyContent _01">
-                        <input id="nomeProdutor"  class="inputDados" type="text" placeholder="NOME DO PRODUTOR">
+                        <input id="nomeProdutor" value="Lucas" class="inputDados" type="text" placeholder="NOME DO PRODUTOR">
                         <input id="infoComplementares" value="Mercadoria destinada a exportação." class="inputDados" type="text" placeholder="INFORMAÇÕES COMPLEMENTARES">
                     </div>
                     <div class="justifyContent _02">
-                        <input id="produto" class="inputDados" type="text" placeholder="PRODUTO">
+                        <input id="produto" class="inputDados" value="Gengibre Fresco"  type="text" placeholder="PRODUTO">
 
                         <input id="NCM" class="inputDados" type="number" value="09101100" placeholder="NCM">
                     </div>
                     <div class="justifyContent _03">
-                        <input id="quantidade" class="inputDados" type="number" placeholder="QUANTIDADE">
-                        <input id="valorUnitario" class="inputDados" type="number" placeholder="VALOR UNIT">
+                        <input id="quantidade" value="1"  class="inputDados" type="number" placeholder="QUANTIDADE">
+                        <input id="valorUnitario" value="1"  class="inputDados" type="number" placeholder="VALOR UNIT">
                     </div>
                     <div class=" botao2">
                         <button onclick="criarNovaDiv()" class="buttonAdicionar"><img src="http://localhost:3100/static/images/add.svg" alt="Icone add"></button>
@@ -101,7 +101,7 @@
                     <div class="barraProgresso">
                         <div class="efeitoProgresso"></div>
                         <img id="setaProgresso" class="setaProgresso" src="http://localhost:3100/static/images/arrow.svg"
-                            alt="Sete que mostra o progresso ao emitir as notas">
+                            alt="Seta que mostra o progresso ao emitir as notas">
                         <div id="progressoLogin" class="progresso verde">1 Login</div>
                         <div id="progressoRementente" class="progresso">2 Remetente Destinatário</div>
                         <div id="progressoProdutos" class="progresso">3 Produtos</div>
@@ -110,6 +110,10 @@
                         <div id="progressoDua" class="progresso">6 Dua</div>
                         <div id="progressoAutorizacao" class="progresso">7 Autorização</div>
                     </div>
+                    <p style="text-align: center;" id="mensagemProgresso"></p>
+
+               
+                   
 
                 </div>
 
