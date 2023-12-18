@@ -1,4 +1,4 @@
-let cadastroProdutores = () => {
+let x = () => {
     const form = document.getElementById("formCadastroProdutor");
 
     if (!form) {
@@ -10,15 +10,15 @@ let cadastroProdutores = () => {
         e.preventDefault();
 
         // selecionar inputs 
-        const numeroInput = form.querySelector(".numero").value;
-        const produtorRuralInput = form.querySelector(".produtorRural").value;
-        const loginInput = form.querySelector(".login").value;
-        const senhaInput = form.querySelector(".senha").value;
+        const numeroInput = form.querySelector("numero").value;
+        const produtorRuralInput = form.querySelector("nome").value;
+        const loginInput = form.querySelector("login").value;
+        const senhaInput = form.querySelector("senha").value;
 
         fetch("php/cadastrarProdutorRural.php", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json',
             },
             body: new URLSearchParams({ numeroInput, produtorRuralInput, loginInput, senhaInput })
         })

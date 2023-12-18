@@ -19,6 +19,8 @@ let criarNovaDiv = () => {
     let ncm = document.getElementById('NCM').value
     let quantidade = document.getElementById('quantidade').value
     let valorUnitario = document.getElementById('valorUnitario').value
+    let login = document.getElementById('loginProdutor').value
+    let senha = document.getElementById('senhaProdutor').value
 
    
 
@@ -29,7 +31,7 @@ let criarNovaDiv = () => {
     } else {
 
         //------------------------------------------------
-        infoNotas(index, nomeProdutor,infoComplementares, produto,ncm,quantidade,valorUnitario)
+        infoNotas(index, nomeProdutor,infoComplementares, produto,ncm,quantidade,valorUnitario,login,senha)
         //------------------------------------------------
 
         container.innerHTML += `
@@ -56,6 +58,7 @@ let criarNovaDiv = () => {
     `
         index++
         contarDivs()
+        console.log(dadosNotas)
 
 
     }
@@ -96,7 +99,7 @@ let contarDivs = () => {
 
 
 // Interagindo com os dados em arrrays 
-let infoNotas = (index, nomeProdutor,infoComplementares, produto,ncm,quantidade,valorUnitario) => {
+let infoNotas = (index, nomeProdutor,infoComplementares, produto,ncm,quantidade,valorUnitario,login,senha) => {
 
     let objeto = {
         index,
@@ -105,7 +108,9 @@ let infoNotas = (index, nomeProdutor,infoComplementares, produto,ncm,quantidade,
         produto,
         ncm,
         quantidade,
-        valorUnitario
+        valorUnitario,
+        login,
+        senha
     }
 
     dadosNotas.push(objeto)

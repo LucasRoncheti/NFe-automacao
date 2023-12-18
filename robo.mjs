@@ -2,10 +2,12 @@ import puppeteer from 'puppeteer';
 import path from 'path';
 import fs from 'fs';
 import fsx from 'fs-extra';
+import express from 'express';
+import bodyParser from 'body-parser'
 
 
 //logica para receber os dados do html 
-import express from 'express';
+
 import { fileURLToPath } from 'url';
 import { join, dirname } from 'path';
 
@@ -49,8 +51,11 @@ app.get('/pingServidor', (req, res) => {
         }
 
         if (respostaServidorVar === "error") {
-            clearInterval(intervalId);
-            res.end();
+            res.write(`data: ${respostaServidorVar}\n\n`)
+            setTimeout(() =>{
+                res.end();
+            },1000)
+          
 
             respostaServidorVar = ""
 
@@ -88,13 +93,13 @@ app.post('/enviar-dados', (req, res) => {
         return;
     }
 
-    const { indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario } = req.body;
+    const { indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario,loginProd,senhaProd} = req.body;
 
     // Lógica para processar os dados e enviar uma resposta
 
-     gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario);
+     gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario,loginProd,senhaProd);
 
-
+    console.log(indice, nomeProdutor, infoComplementares, produto, ncm,quantidade, valorUnitario,loginProd,senhaProd);
     res.send('Dados recebidos com sucesso!');
 });
 
@@ -108,10 +113,8 @@ app.listen(port, () => {
 
 
 
-//variaveis com as senha e login do usuário 
-let login = "10032209754";
-let senha = '@Denivaldo0';
-// let nomeProdutor = 'ELINEIA KEMPIN REINHOLZ'
+
+
 
 //dados da empresa 
 const razaoSocial = 'REINHOLZ GINGER COMERCIO DE RAIZES LTDA';
@@ -125,14 +128,7 @@ const bairro = 'GALO';
 const complemento = 'GALPÃO SÍTIO REINHOLZ';
 const email = 'reinholzginger@hotmail.com';
 
-// // dados do pedido 
-// let produto = 'Gengibre fresco';
-// let quantidade = '1';
-// let valorUnitario = '1';
-// let desconto = "";
-// let indice = '1';
-// let ncm = '09101100';
-// let infoComplementares = 'Mercadoria destinada a exportação';
+
 
 // seletor botão avançar 
 let botaoAvancar = '#btn-avancar';
@@ -143,10 +139,12 @@ function delay(time) {
     });
 }
 
-async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario) {
+async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario,loginProd,senhaProd) {
 
-
-    // Inicialize o navegador
+    //variaveis com as senha e login do usuário 
+    let login = loginProd;
+    let senha = senhaProd;
+    // InicializsenhaProd
     const browser = await puppeteer.launch({
         headless: false,
         devtools: false,
