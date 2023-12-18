@@ -2,6 +2,7 @@
 
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
+const path =  require('path');
 
 let mainWindow;
 
@@ -11,6 +12,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: width,
     height: height,
+    icon: path.join(__dirname, 'src/images/robot-icon-4.png'),
     webPreferences: {
       nodeIntegration: true
     }
