@@ -11,6 +11,8 @@ app.commandLine.appendSwitch('disable-web-security');
 
 let mainWindow;
 
+//c
+
 function createWindow() {
   const { width, height } = require('electron').screen.getPrimaryDisplay().workAreaSize;
 
