@@ -6,7 +6,7 @@ import express from 'express';
 import bodyParser from 'body-parser'
 
 
-//logica para receber os dados do html 
+//logica para para receber os dados do html 
 
 import { fileURLToPath } from 'url';
 import { join, dirname } from 'path';
