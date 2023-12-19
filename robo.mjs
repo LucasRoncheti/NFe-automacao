@@ -99,20 +99,13 @@ app.post('/enviar-dados', (req, res) => {
 
      gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario,loginProd,senhaProd);
 
-    console.log(indice, nomeProdutor, infoComplementares, produto, ncm,quantidade, valorUnitario,loginProd,senhaProd);
-    res.send('Dados recebidos com sucesso!');
+ 
+    res.send(senhaProd,loginProd);
 });
 
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
-
-
-
-
-
-
-
 
 
 
@@ -142,8 +135,8 @@ function delay(time) {
 async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario,loginProd,senhaProd) {
 
     //variaveis com as senha e login do usuário 
-    let login = loginProd;
-    let senha = senhaProd;
+    // let login = loginProd;
+    // let senha = senhaProd;
     // InicializsenhaProd
     const browser = await puppeteer.launch({
         headless: false,
@@ -202,7 +195,7 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         //seleciona e digita o cpf no campo 
         await page.waitForSelector('#div-campo-identificador');
         console.log("Digitando login...");
-        await page.type('#cpf', login);
+        await page.type('#cpf', loginProd);
         await page.click('#btncpf');
         respostaServidorVar = "Senha.."
         //espera o campo de senha estar disponível para ser preenchido
@@ -211,7 +204,7 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
 
         //preenche o canmpo de senha e da um enter para logar 
         console.log("Digitando senha ...");
-        await page.type('#senha', senha);
+        await page.type('#senha', senhaProd);
         await page.keyboard.press('Enter');
 
         respostaServidorVar = "Logando...";

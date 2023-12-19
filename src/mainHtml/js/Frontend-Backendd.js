@@ -96,6 +96,8 @@ function enviarDados() {
         let loginProd = x.login;
         let senhaProd = x.senha;
 
+        console.log(loginProd, senhaProd)
+
         let NomeProdutorCaixaDialogo = document.getElementById('NomeProdutorCaixaDialogo')
         NomeProdutorCaixaDialogo.innerHTML = nomeProdutor
 
@@ -258,19 +260,19 @@ eventSource.onmessage = function (event) {
 
     if ((event.data !== 'Sucesso' && event.data !== 'Sucesso--') && chamouFuncao === 10) {
         funcaoBarraProgresso(event.data);
-        console.log("servidor 1" + event.data);
+        // console.log("servidor 1" + event.data);
 
     }
 
     if ((event.data === 'Entrando no site...')) {
         validarFuncao2 = true;
-        console.log(validarFuncao2);
+        // console.log(validarFuncao2);
     }
 
     if ((event.data === 'Sucesso--') && validarFuncao2) {
         validarFuncao2 = false;
         chamouFuncao = 16
-        console.log("servidor 2" + event.data);
+        // console.log("servidor 2" + event.data);
         funcaoBarraProgresso(event.data);
     }
 
@@ -392,8 +394,8 @@ let listar = () => {
 let preencherDados = (name,login,senha) => {
 
     let produtorName = document.getElementById('nomeProdutor');
-    let produtorLogin = document.getElementById('senhaProdutor');
-    let produtorSenha = document.getElementById('loginProdutor');
+    let produtorLogin = document.getElementById('loginProdutor');
+    let produtorSenha = document.getElementById('senhaProdutor');
 
     produtorName.value = name;
     produtorLogin.value = login;
