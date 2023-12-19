@@ -51,7 +51,7 @@ function createWindow() {
   // abre o arquivo html que será exibido no electron, e conversa com o servidor node na porta 3000
   const url = isDev
     ? 'http://localhost:3000'
-    : `file://${path.join(__dirname, 'src/mainHtml/main.html')}`;
+    : `file://${path.join(__dirname, './src/mainHtml/main.html')}`;
 
   mainWindow.loadURL(url);
 
@@ -60,7 +60,6 @@ function createWindow() {
   });
 
 
- 
 
 }
 
