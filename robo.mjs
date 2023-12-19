@@ -454,8 +454,8 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         respostaServidorVar = "Iniciando download";
 
 
-        const origemMove = 'C:/Users/Lucas Roncheti/Downloads/danfe.pdf';
-        const destinoMove = 'C:/Users/Lucas Roncheti/Downloads/NotasFiscais/danfe.pdf';
+        const origemMove = 'C:/Users/RONALDO/Downloads/danfe.pdf';
+        const destinoMove = 'C:/Users/RONALDO/Downloads/NotasFiscais/danfe.pdf';
 
 
 
@@ -503,7 +503,7 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
                     }
 
                     // Diretório de downloads e nome do arquivo
-                    const diretorioDownloads = 'C:/Users/Lucas Roncheti/Downloads/NotasFiscais';
+                    const diretorioDownloads = 'C:/Users/RONALDO/Downloads/NotasFiscais';
                     const nomeArquivoOriginal = 'danfe.pdf';
                     const novoNome = `${diretorioDownloads}/${nomeProdutor}-${indice}.pdf`;
 
