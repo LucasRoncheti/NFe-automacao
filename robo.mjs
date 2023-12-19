@@ -501,7 +501,7 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
                             return false; // O arquivo não existe
                         }
                     }
-
+                        //teste de update -- não considerar essa linha
                     // Diretório de downloads e nome do arquivo
                     const diretorioDownloads = 'C:/Users/RONALDO/Downloads/NotasFiscais';
                     const nomeArquivoOriginal = 'danfe.pdf';
