@@ -121,7 +121,8 @@ const bairro = 'GALO';
 const complemento = 'GALPÃO SÍTIO REINHOLZ';
 const email = 'reinholzginger@hotmail.com';
 
-
+const caminhoDownload = 'C:/Users/RONALDO/Downloads/'
+// const caminhoDownload = 'C:/Users/Lucas Roncheti/Downloads/'
 
 // seletor botão avançar 
 let botaoAvancar = '#btn-avancar';
@@ -454,8 +455,8 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         respostaServidorVar = "Iniciando download";
 
 
-        const origemMove = 'C:/Users/RONALDO/Downloads/danfe.pdf';
-        const destinoMove = 'C:/Users/RONALDO/Downloads/NotasFiscais/danfe.pdf';
+        const origemMove = caminhoDownload+'danfe.pdf';
+        const destinoMove =caminhoDownload+'NotasFiscais/danfe.pdf';
 
 
 
@@ -501,9 +502,9 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
                             return false; // O arquivo não existe
                         }
                     }
-                        //teste de update -- não considerar essa linha
+                       
                     // Diretório de downloads e nome do arquivo
-                    const diretorioDownloads = 'C:/Users/RONALDO/Downloads/NotasFiscais';
+                    const diretorioDownloads = caminhoDownload+'NotasFiscais';
                     const nomeArquivoOriginal = 'danfe.pdf';
                     const novoNome = `${diretorioDownloads}/${nomeProdutor}-${indice}.pdf`;
 

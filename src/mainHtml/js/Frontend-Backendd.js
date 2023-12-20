@@ -222,11 +222,14 @@ let funcaoBarraProgresso = (indiceResposta) => {
                     if (dadosNotas.length === 0) {
                         FilaDeEmissao()
                         console.log('filadeemissao()')
+                        audio('sucesso01');
                         return
                     } else {
                         console.log('entrou no set ()')
                         setTimeout(() => {
+                            
                             iniciarProcesso()
+                            audio('sucesso02');
                             chamouFuncao = 10
                         }, 6000)
 
@@ -244,6 +247,7 @@ let funcaoBarraProgresso = (indiceResposta) => {
 
             textoProgresso.innerHTML = '<strong>Status Atual: ' + indiceResposta + '</strong>'
             textoProgresso.style.color = "#E42B02"
+            audio('errorServer');
 
             break;
     }

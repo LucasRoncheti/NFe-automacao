@@ -36,8 +36,10 @@ header {
     width: 20%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    flex-direction: column;
+    position: relative;
 }
 
 
