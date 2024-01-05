@@ -354,6 +354,8 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
 
         await page.type('#Ncm', ncm);
         console.log('ncm adicionado');
+        // aguarda meio segundo até continuar para informações complementares 
+        new Promise(r => setTimeout(r, 500));
 
         respostaServidorVar = "Preenchendo informações complementares...";
         //adicionar informações complementares 
