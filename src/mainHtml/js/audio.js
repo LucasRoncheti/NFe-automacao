@@ -25,7 +25,6 @@ let audio = (condicao) => {
                  alert('Ocorreu algum erro inesperado');
                  FilaDeEmissao()
                   });
-                break;
-            
+                break;   
     }
  }

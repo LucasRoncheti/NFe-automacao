@@ -121,7 +121,7 @@ const bairro = 'GALO';
 const complemento = 'GALPÃO SÍTIO REINHOLZ';
 const email = 'reinholzginger@hotmail.com';
 
-const caminhoDownload = 'C:/Users/RONALDO/Downloads/'
+const caminhoDownload = 'C:/Users/reinh/Downloads/'
 // const caminhoDownload = 'C:/Users/Lucas Roncheti/Downloads/'
 
 // seletor botão avançar 
@@ -257,7 +257,7 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         //espera carregar od dados do cep antes de prosseguir para a próxima ação 
         await page.waitForFunction(() => {
             const cidadeInput = document.getElementById('DesMunicipio');
-            return cidadeInput && cidadeInput.value.trim() !== '...' || '';
+            return cidadeInput && cidadeInput.value.trim() !== 'aguarde...' || '';
         });
 
         //preenche logradouro 
@@ -265,6 +265,7 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
 
         //seledciona area 
         await page.waitForSelector('#DesTipoLogradouro');
+        // await page.click('#DesTipoLogradouro');
         await page.select('#DesTipoLogradouro', tipo);
 
         //preenche o numero 
@@ -315,22 +316,31 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         console.log('produto adicionado');
 
         //seleciona a unidade 
-        await page.click('.unidade');
-        await page.waitForSelector('[data-original-index="2"]');
+      
+       // Aguarde o elemento <select> estar disponível
+        await page.waitForSelector('select#UnidadeProd');
+
+        // Selecione a opção com valor "CX"
+        await page.select('select#UnidadeProd', 'CX');
+
+
+        // await page.click('.unidade');
+        // await page.waitForSelector('[data-original-index="2"]');
 
         // Texto que você deseja usar como seletor
-        const textoDesejado = 'Caixa (CX)';
+        // const textoDesejado = 'Caixa (CX)';
 
         // Construir a expressão XPath para selecionar a tag <a> com base no texto
-        const xpathExpression = `//li//span[text()='${textoDesejado}']/ancestor::a`;
+        // const xpathExpression = `//li//span[text()='${textoDesejado}']/ancestor::a`;
 
         // Selecionar a tag <a> usando $x
-        const elementoA = await page.$x(xpathExpression);
+        // const elementoA = await page.$x(xpathExpression);
 
         // Fazer algo com o elemento <a> (exemplo: clicar)
-        await elementoA[0].click();
+        // await elementoA[0].click();
 
         console.log('unidade adicionado');
+
 
         //adiciona quantidade
         await page.type('#QuantProd', quantidade);
@@ -364,13 +374,22 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         await page.type('#txt-info-complementar-produto', infoComplementares);
         console.log('complementares adicionado')
 
-        await page.click('[data-id="ICMSTributacao"]');
+
+                // Aguarde o elemento <select> estar disponível
+        await page.waitForSelector('select#ICMSTributacao');
+
+        // Selecione a opção com valor "0" que corresponde a "Não tributado"
+        await page.select('select#ICMSTributacao', '0');
+
+        // await page.click('[data-id="ICMSTributacao"]');
 
 
         // Usando XPath para localizar o elemento pelo atributo data-original-index
-        const xpathExpression1 = `//li//span[text()='Não tributado']/ancestor::a`;
-        const elemento = await page.waitForXPath(xpathExpression1);
-        await elemento.click();
+        // const xpathExpression1 = `//li//span[text()='Não tributado']/ancestor::a`;
+        // const elemento = await page.waitForXPath(xpathExpression1);
+        // await elemento.click();
+
+
 
         console.log('Tributação');
 
@@ -434,15 +453,17 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
 
         await page.waitForSelector('#form-passo-8', { visible: true });
         await page.waitForSelector('#step-8', { visible: true });
-        await page.waitForSelector('#divSpin', { visible: false });
+         await page.waitForSelector('#divSpin', { visible: false });
         console.log('Fazendo Download...');
-        
+
+  
+
         const linkSelector = '#lnk-download-danfe-passo-8';
 
         let href;
         while (true) {
 
-            await page.waitForTimeout(1000);
+            
 
             href = await page.$eval(linkSelector, link => link.getAttribute('href'));
 
