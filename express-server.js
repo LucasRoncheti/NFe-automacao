@@ -38,7 +38,7 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'automacao_nfe'
+  database:'automacao_nfe_tatiana'
 });
 
 connection.connect((err=>{

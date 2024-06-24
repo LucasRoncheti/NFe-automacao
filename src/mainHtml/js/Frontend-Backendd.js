@@ -95,8 +95,10 @@ function enviarDados() {
 
         let loginProd = x.login;
         let senhaProd = x.senha;
+        let empresa = x.empresa;
 
-        console.log(loginProd, senhaProd)
+        console.log(loginProd, senhaProd,empresa)
+   
 
         let NomeProdutorCaixaDialogo = document.getElementById('NomeProdutorCaixaDialogo')
         NomeProdutorCaixaDialogo.innerHTML = nomeProdutor
@@ -115,7 +117,8 @@ function enviarDados() {
                 quantidade,
                 valorUnitario,
                 loginProd,
-                senhaProd
+                senhaProd,
+                empresa
             }),
         })
             .then(response => response.text())

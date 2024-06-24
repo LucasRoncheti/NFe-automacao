@@ -42,6 +42,10 @@ header {
     position: relative;
 }
 
+#empresaNota{
+  border-radius: 5px;
+  background-color: var(--cor05);
+}
 
 /*Container com as principais funções */
 .containerFuncoes {

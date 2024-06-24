@@ -26,14 +26,7 @@
         <section  class="containerFuncoes">
             <div class="imgRobo">
                 <img src="http://localhost:3100/static/images/robozinho.svg" alt="">
-                <details style="position:absolute;bottom: 0px;left: 0px;background-color: #D9D9D9;">
-                    <summary ">Atualizaçãoes</summary>
-                    <p style="font-size: 0.8em;color: red;" >
-                        1 - Consertado bug preenchimento ncm e dados complementares <br><br>
-                       
-                    </p>
-                    
-                </details>
+             
             </div>
             <div class="funcoes">
                 <!-- <button onclick="receberRespostaServidor()">TESTE</button> -->
@@ -90,13 +83,18 @@
                         <input id="infoComplementares" value="Mercadoria destinada a exportação." class="inputDados" type="text" placeholder="INFORMAÇÕES COMPLEMENTARES">
                     </div>
                     <div class="justifyContent _02">
-                        <input id="produto" class="inputDados" value="Gengibre Fresco"  type="text" placeholder="PRODUTO">
+                        <input title="Produto" id="produto" class="inputDados" value="Gengibre Fresco"  type="text" placeholder="PRODUTO">
 
-                        <input id="NCM" class="inputDados" type="number" value="09101100" placeholder="NCM">
+                        <input title="NCM" id="NCM" class="inputDados" type="number" value="09101100" placeholder="NCM">
                     </div>
                     <div class="justifyContent _03">
-                        <input id="quantidade" value="1"  class="inputDados" type="number" placeholder="QUANTIDADE">
-                        <input id="valorUnitario" value="1"  class="inputDados" type="number" placeholder="VALOR UNIT">
+                        <input title="Quantidade" id="quantidade" value="1"  class="inputDados" type="number" placeholder="QUANTIDADE">
+                        <input title="Valor Unitário" id="valorUnitario" value="1"  class="inputDados" type="number" placeholder="VALOR UNIT">
+                        <select name="empresa" id="empresaNota">
+                            <option value="">Empresa</option>
+                            <option value="Lhf">Lhf</option>
+                            <option value="Francisco">Francisco K L</option>
+                        </select>
                     </div>
                     <div class=" botao2">
                         <button onclick="criarNovaDiv()" class="buttonAdicionar"><img src="http://localhost:3100/static/images/add.svg" alt="Icone add"></button>

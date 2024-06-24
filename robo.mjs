@@ -85,7 +85,7 @@ app.get('/pingServidor', (req, res) => {
 
 //--------------------------------------
 
-
+var Empresa = ""
 app.post('/enviar-dados', (req, res) => {
     // Certifique-se de que req.body está definido antes de tentar desestruturar
     if (!req.body) {
@@ -93,14 +93,14 @@ app.post('/enviar-dados', (req, res) => {
         return;
     }
 
-    const { indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario,loginProd,senhaProd} = req.body;
+    const { indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario,loginProd,senhaProd,empresa} = req.body;
 
     // Lógica para processar os dados e enviar uma resposta
 
      gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario,loginProd,senhaProd);
 
- 
-    res.send(senhaProd,loginProd);
+    Empresa = empresa
+    res.send(senhaProd,loginProd,empresa);
 });
 
 app.listen(port, () => {
@@ -109,20 +109,39 @@ app.listen(port, () => {
 
 
 
-//dados da empresa 
-const razaoSocial = 'REINHOLZ GINGER COMERCIO DE RAIZES LTDA';
-const cnpj = '50688819000161';
-const inscricaoEstadual = '084083271';
-const cep = '29260000';
-const tipo = 'Area';
-const logradouro = 'AE ZONA RURAL';
-const numero = '00';
-const bairro = 'GALO';
-const complemento = 'GALPÃO SÍTIO REINHOLZ';
-const email = 'reinholzginger@hotmail.com';
+if (Empresa === "Lhf") {
 
-const caminhoDownload = 'C:/Users/reinh/Downloads/'
-// const caminhoDownload = 'C:/Users/Lucas Roncheti/Downloads/'
+    //dados da empresa 
+    const razaoSocial = 'Lhf Importação e Exportação LTDA';
+    const cnpj = '47467208000189';
+    const inscricaoEstadual = '083948066';
+    const cep = '29645000';
+    const tipo = 'Area';
+    const logradouro = 'AE ZONA RURAL';
+    const numero = '00';
+    const bairro = 'Rio Bonito';
+    const complemento = 'Anexo Sítio Beira Rio';
+    const email = ' hortikalott.contato@hotmail.com';
+
+} else {
+    //dados da empresa 
+    const razaoSocial = 'Francisco Kalott Ltda';
+    const cnpj = '18785508000108';
+    const inscricaoEstadual = '083117946';
+    const cep = '29645000';
+    const tipo = 'Area';
+    const logradouro = 'AE ZONA RURAL';
+    const numero = '00';
+    const bairro = 'Rio Bonito';
+    const complemento = 'GALPÃO';
+    const email = 'hortikalott.financeiro@gmail.com';
+
+}
+
+
+
+//const caminhoDownload = 'C:/Users/reinh/Downloads/'
+ const caminhoDownload = 'C:/Users/Lucas Roncheti/Downloads/'
 
 // seletor botão avançar 
 let botaoAvancar = '#btn-avancar';

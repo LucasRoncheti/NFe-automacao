@@ -21,17 +21,19 @@ let criarNovaDiv = () => {
     let valorUnitario = document.getElementById('valorUnitario').value
     let login = document.getElementById('loginProdutor').value
     let senha = document.getElementById('senhaProdutor').value
+    let empresa = document.getElementById('empresaNota').value
+    
 
    
 
     // verifica se tem algum campo sem ser preenchido 
-    if (nomeProdutor === '' || quantidade === '' || valorUnitario === '' || produto === '') {
+    if (nomeProdutor === '' || quantidade === '' || valorUnitario === '' || produto === '' || empresa ==='') {
         audio("error")
         return
     } else {
 
         //------------------------------------------------
-        infoNotas(index, nomeProdutor,infoComplementares, produto,ncm,quantidade,valorUnitario,login,senha)
+        infoNotas(index, nomeProdutor,infoComplementares, produto,ncm,quantidade,valorUnitario,login,senha,empresa)
         //------------------------------------------------
 
         container.innerHTML += `
@@ -49,6 +51,7 @@ let criarNovaDiv = () => {
             <div class="containerDescricaoitens">
                 <p><strong>Produtor:${nomeProdutor}</strong></p>
                 <p>Produto:${produto}</p>
+                <p>Empresa:${empresa}</p>
                 <p>Quant.:${quantidade} </p>
                 <p>Valor Unit.: R$ ${valorUnitario},00</p>
                 <p>Informações Complementares: ${infoComplementares}</p>
@@ -99,7 +102,7 @@ let contarDivs = () => {
 
 
 // Interagindo com os dados em arrrays 
-let infoNotas = (index, nomeProdutor,infoComplementares, produto,ncm,quantidade,valorUnitario,login,senha) => {
+let infoNotas = (index, nomeProdutor,infoComplementares, produto,ncm,quantidade,valorUnitario,login,senha,empresa) => {
 
     let objeto = {
         index,
@@ -110,7 +113,8 @@ let infoNotas = (index, nomeProdutor,infoComplementares, produto,ncm,quantidade,
         quantidade,
         valorUnitario,
         login,
-        senha
+        senha,
+        empresa
     }
 
     dadosNotas.push(objeto)
