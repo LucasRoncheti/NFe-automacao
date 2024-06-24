@@ -10,15 +10,21 @@ let audio = (condicao) => {
 
     switch(condicao){
         case "sucesso01":
-            secesso01.play()
+            secesso02.play()
             break;
         case "sucesso02":
-            secesso02.play()
+            secesso01.play()
             break;
         case "error":
             error.play().then(() => {
                 alert('Preencha todos os campos');
               });
             break;
+            case "errorServer":
+                error.play().then(() => {
+                 alert('Ocorreu algum erro inesperado');
+                 FilaDeEmissao()
+                  });
+                break;   
     }
  }
