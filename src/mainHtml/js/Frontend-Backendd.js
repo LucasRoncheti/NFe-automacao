@@ -90,12 +90,16 @@ function enviarDados() {
         let valorUnitarioToString = x.valorUnitario.toString()
         let valorUnitario = valorUnitarioToString;
 
+        let descontoString = x.desconto.toString();
+        let desconto =descontoString;
+
         let indiceToString = x.index.toString();
         let indice = indiceToString;
 
         let loginProd = x.login;
         let senhaProd = x.senha;
         let empresa = x.empresa;
+   
 
         console.log(loginProd, senhaProd,empresa)
    
@@ -118,7 +122,8 @@ function enviarDados() {
                 valorUnitario,
                 loginProd,
                 senhaProd,
-                empresa
+                empresa,
+                desconto
             }),
         })
             .then(response => response.text())

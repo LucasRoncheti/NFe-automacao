@@ -22,6 +22,7 @@ let criarNovaDiv = () => {
     let login = document.getElementById('loginProdutor').value
     let senha = document.getElementById('senhaProdutor').value
     let empresa = document.getElementById('empresaNota').value
+    let desconto = document.getElementById('desconto').value
     
 
    
@@ -33,7 +34,7 @@ let criarNovaDiv = () => {
     } else {
 
         //------------------------------------------------
-        infoNotas(index, nomeProdutor,infoComplementares, produto,ncm,quantidade,valorUnitario,login,senha,empresa)
+        infoNotas(index, nomeProdutor,infoComplementares, produto,ncm,quantidade,valorUnitario,login,senha,empresa,desconto)
         //------------------------------------------------
 
         container.innerHTML += `
@@ -52,8 +53,9 @@ let criarNovaDiv = () => {
                 <p><strong>Produtor:${nomeProdutor}</strong></p>
                 <p>Produto:${produto}</p>
                 <p>Empresa:${empresa}</p>
+                <p>Desconto:R$ ${desconto}</p>
                 <p>Quant.:${quantidade} </p>
-                <p>Valor Unit.: R$ ${valorUnitario},00</p>
+                <p>Valor Unit.: R$ ${valorUnitario}</p>
                 <p>Informações Complementares: ${infoComplementares}</p>
             </div>
         </div>
@@ -102,7 +104,7 @@ let contarDivs = () => {
 
 
 // Interagindo com os dados em arrrays 
-let infoNotas = (index, nomeProdutor,infoComplementares, produto,ncm,quantidade,valorUnitario,login,senha,empresa) => {
+let infoNotas = (index, nomeProdutor,infoComplementares, produto,ncm,quantidade,valorUnitario,login,senha,empresa,desconto) => {
 
     let objeto = {
         index,
@@ -114,7 +116,8 @@ let infoNotas = (index, nomeProdutor,infoComplementares, produto,ncm,quantidade,
         valorUnitario,
         login,
         senha,
-        empresa
+        empresa,
+        desconto
     }
 
     dadosNotas.push(objeto)

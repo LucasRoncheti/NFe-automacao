@@ -85,7 +85,7 @@ app.get('/pingServidor', (req, res) => {
 
 //--------------------------------------
 
-var Empresa = ""
+
 app.post('/enviar-dados', (req, res) => {
     // Certifique-se de que req.body está definido antes de tentar desestruturar
     if (!req.body) {
@@ -93,13 +93,13 @@ app.post('/enviar-dados', (req, res) => {
         return;
     }
 
-    const { indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario,loginProd,senhaProd,empresa} = req.body;
+    const { indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario,loginProd,senhaProd,empresa,desconto} = req.body;
 
     // Lógica para processar os dados e enviar uma resposta
 
-     gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario,loginProd,senhaProd);
+     gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario,loginProd,senhaProd,empresa,desconto);
 
-    Empresa = empresa
+   
     res.send(senhaProd,loginProd,empresa);
 });
 
@@ -109,34 +109,7 @@ app.listen(port, () => {
 
 
 
-if (Empresa === "Lhf") {
 
-    //dados da empresa 
-    const razaoSocial = 'Lhf Importação e Exportação LTDA';
-    const cnpj = '47467208000189';
-    const inscricaoEstadual = '083948066';
-    const cep = '29645000';
-    const tipo = 'Area';
-    const logradouro = 'AE ZONA RURAL';
-    const numero = '00';
-    const bairro = 'Rio Bonito';
-    const complemento = 'Anexo Sítio Beira Rio';
-    const email = ' hortikalott.contato@hotmail.com';
-
-} else {
-    //dados da empresa 
-    const razaoSocial = 'Francisco Kalott Ltda';
-    const cnpj = '18785508000108';
-    const inscricaoEstadual = '083117946';
-    const cep = '29645000';
-    const tipo = 'Area';
-    const logradouro = 'AE ZONA RURAL';
-    const numero = '00';
-    const bairro = 'Rio Bonito';
-    const complemento = 'GALPÃO';
-    const email = 'hortikalott.financeiro@gmail.com';
-
-}
 
 
 
@@ -152,7 +125,38 @@ function delay(time) {
     });
 }
 
-async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario,loginProd,senhaProd) {
+async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm, quantidade, valorUnitario,loginProd,senhaProd,empresa,desconto) {
+
+
+    let razaoSocial, cnpj, inscricaoEstadual, cep, tipo, logradouro, numero, bairro, complemento, email;
+    if (empresa === "Lhf") {
+
+        //dados da empresa 
+         razaoSocial = 'Lhf Importação e Exportação LTDA';
+         cnpj = '47467208000189';
+         inscricaoEstadual = '083948066';
+         cep = '29645000';
+         tipo = 'Area';
+         logradouro = 'AE ZONA RURAL';
+         numero = '00';
+         bairro = 'Rio Bonitolet' ;
+         complemento = 'Anexo Sítio Beira Rio';
+         email = ' hortikalott.contato@hotmail.com';
+    
+    } else {
+        //dados da empresa 
+         razaoSocial = 'Francisco Kalott Ltda';
+         cnpj = '18785508000108';
+         inscricaoEstadual = '083117946';
+         cep = '29645000';
+         tipo = 'Area';
+         logradouro = 'AE ZONA RURAL';
+         numero = '00';
+         bairro = 'Rio Bonito';
+         complemento = 'GALPÃO';
+         email = 'hortikalott.financeiro@gmail.com';
+    
+    }
 
     //variaveis com as senha e login do usuário 
     // let login = loginProd;
@@ -327,21 +331,26 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         }, divSelector);
 
         //selecionando outros produtos 
-        await page.waitForSelector('[data-original-index="40"]');
-        await page.click('[data-original-index="40"]');
+        await page.waitForSelector('[data-original-index="25"]');
+        await page.click('[data-original-index="25"]');
 
-        await page.waitForSelector("#descricao-livre-produto", { visible: true })
-        await page.type("#descricao-livre-produto", produto);
+        await  page.waitForSelector('#div-sub-produto-42');
+        await  page.click('#div-sub-produto-42');
+
+        // await page.waitForSelector("#descricao-livre-produto", { visible: true })
+        // await page.type("#descricao-livre-produto", produto);
         console.log('produto adicionado');
 
         //seleciona a unidade 
       
+      
        // Aguarde o elemento <select> estar disponível
         await page.waitForSelector('select#UnidadeProd');
-
+    
         // Selecione a opção com valor "CX"
-        await page.select('select#UnidadeProd', 'CX');
+        await page.select('select#UnidadeProd','KG');
 
+   
 
         // await page.click('.unidade');
         // await page.waitForSelector('[data-original-index="2"]');
@@ -360,7 +369,7 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
 
         console.log('unidade adicionado');
 
-
+    
         //adiciona quantidade
         await page.type('#QuantProd', quantidade);
         console.log('quantidade adicionado');
@@ -370,6 +379,12 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         console.log('Valor adicionado');
 
 
+        //valor desconto
+        await page.type('#DescontoProd', desconto);
+        console.log('Valor adicionado');
+
+
+        
         //adicionar ncm 
         await page.click('#lnk-ncm-produto');
         await page.waitForSelector('#Ncm');
@@ -393,6 +408,7 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
         await page.type('#txt-info-complementar-produto', infoComplementares);
         console.log('complementares adicionado')
 
+ 
 
                 // Aguarde o elemento <select> estar disponível
         await page.waitForSelector('select#ICMSTributacao');
@@ -402,7 +418,7 @@ async function gerarNotas(indice, nomeProdutor, infoComplementares, produto, ncm
 
         // await page.click('[data-id="ICMSTributacao"]');
 
-
+        
         // Usando XPath para localizar o elemento pelo atributo data-original-index
         // const xpathExpression1 = `//li//span[text()='Não tributado']/ancestor::a`;
         // const elemento = await page.waitForXPath(xpathExpression1);
